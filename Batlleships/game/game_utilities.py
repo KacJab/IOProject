@@ -4,6 +4,7 @@ import random
 class Board:
     def __init__(self):
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
+        self.board_ids = [[y * 10 + x for x in range(0, 10)] for y in range(0, 10)]
 
     def randomly_locate_ships(self, fleet):
         fleet = Fleet()
@@ -13,9 +14,9 @@ class Board:
             place_on_axis = random.randint(0, 9)
             for s in range(0, ship.size):
                 if orientation == 0:
-                    self.board[place_start+s][place_on_axis] = 1
+                    self.board[place_start + s][place_on_axis] = 1
                 else:
-                    self.board[place_on_axis][place_start+s] = 1
+                    self.board[place_on_axis][place_start + s] = 1
 
 
 class Ship:

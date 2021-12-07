@@ -9,7 +9,7 @@ def index(request):
     board.randomly_locate_ships(Fleet())
     x = 5
     return render(request, 'game.html', {
+        'game_title': 'Battleship',
         'board': board.board,
-        'cols': len(board.board),
-        'rows': len(board.board[0])
+        'board_ids': board.board_ids,
     })

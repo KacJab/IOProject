@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>{{ game_title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,15 +10,75 @@
 
 </head>
 <body>
-<h2></h2>
 
+<style>
+    li{
+
+    }
+
+    .board {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .field {
+        padding: 0;
+        display: inline-block;
+        vertical-align: top;
+        width: 40px;
+        height: 40px;
+        background-color: cadetblue;
+        border: 1px black;
+    }
+
+    .checkedfield {
+        background-color: red;
+    }
+
+
+</style>
+
+{% load templatetags %}
 
   <div class="container">
-
+    <ul class="board" id="board">
+    {% for row in board %}
+        {% with forloop.counter as row_counter %}
+            {% for col in board %}
+                {% with forloop.counter as col_counter %}
+                    {% if row_counter == 1 and col_counter == 1 %}
+                        <li class="field"></li>
+                    {% elif row_counter == 1 %}
+                        <li class="field"> {{ col_counter|add:-1}} </li>
+                    {% elif col_counter == 1 %}
+                        <li class="field"> {{ row_counter|add:-2|chr }} </li>
+                    {% else %}
+                        <li class="field gamefield" id="{{ row_counter|add:-1 }},{{ col_counter|add:-1 }}">f</li>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+            </br>
+        {% endwith %}
+    {% endfor %}
+    </ul>
   </div>
-{#{% for i in cols %}#}
-{##}
-{##}
-{#{% endfor %}#}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("ul[id*=board] li.gamefield").click(function () {
+                let rowcol = this.id.split(',');
+                let r = rowcol[0];
+                let c = rowcol[1];
+                alert(r + ' ' + c);
+                if (this.className === "field gamefield") {
+                    this.className = "field checkedfield";
+                } else {
+
+                }
+            });
+        });
+</script>
+
 </body>
 </html>

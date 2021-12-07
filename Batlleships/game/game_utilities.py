@@ -33,4 +33,3 @@ class Fleet:
 
 board = Board()
 board.randomly_locate_ships(Fleet())
-print('heja')

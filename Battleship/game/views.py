@@ -14,13 +14,18 @@ def home(request):
 
 @login_required(login_url='login')
 def game(request):
-    board = Board()
-    board.randomly_locate_ships(Fleet())
-    return render(request, 'game.html', {
-        'game_title': 'Battleship',
-        'board': board.board,
-        'board_ids': board.board_ids,
-    })
+    return render(request, 'plansza.html')
+
+
+# @login_required(login_url='login')
+# def game(request):
+#     board = Board()
+#     board.randomly_locate_ships(Fleet())
+#     return render(request, 'game.html', {
+#         'game_title': 'Battleship',
+#         'board': board.board,
+#         'board_ids': board.board_ids,
+#     })
 
 
 def registerPage(request):

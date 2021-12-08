@@ -8,6 +8,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
+def home(request):
+    return render(request, 'index.html', {})
+
+
 @login_required(login_url='login')
 def game(request):
     board = Board()

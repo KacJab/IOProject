@@ -19,7 +19,9 @@
                         <input type="password" id="password" name="password" class="form-control" placeholder="Wpisz swoje hasło"/>
                         <label class="col-form-label" for="password">Hasło</label>
                     </div>
-
+                    {%  for message in messages %}
+                        <p id="message">{{ message }}</p>
+                    {% endfor %}
                     <div class="d-flex align-items-center justify-content-center pb-4">
 {#                        <a class="btn btn-primary" href="panelGracza.html">Zaloguj</a>#}
                         <input class="btn btn-primary" type="submit" value="Zaloguj">

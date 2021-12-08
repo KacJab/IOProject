@@ -16,3 +16,7 @@ class CreateUserForm(UserCreationForm):
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['email'].widget.attrs['placeholder'] = 'email'
+        self.fields['password1'].widget.attrs['placeholder'] = 'password1'
+        self.fields['password2'].widget.attrs['placeholder'] = 'password2'

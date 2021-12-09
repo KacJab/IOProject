@@ -6,7 +6,7 @@ class Board:
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
         self.board_ids = [[y * 10 + x for x in range(0, 10)] for y in range(0, 10)]
 
-    def randomly_locate_ships(self, fleet):
+    def randomly_locate_ships(self):
         fleet = Fleet()
         for ship in fleet.ships:
             orientation = random.randint(0, 1)
@@ -33,4 +33,4 @@ class Fleet:
 
 
 board = Board()
-board.randomly_locate_ships(Fleet())
+board.randomly_locate_ships()

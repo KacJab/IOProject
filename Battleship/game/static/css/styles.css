@@ -11609,3 +11609,8 @@ body {
 .table table-hover table-dark {
   background-color: transparent !important;
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}

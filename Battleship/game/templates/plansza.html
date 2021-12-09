@@ -88,8 +88,9 @@
                     var cell2 = document.createElement("td");
 
                     var cellText2 = document.createTextNode("0");
-                    cellText2.className = "enemys-field";
-                    cellText2.id = toString(i)+","+toString(j);
+                    cell2.className = "enemys-field";
+                    cell2.id =String.fromCharCode(64+j)+","+i;
+
                     if(j == 0 && i != 0) {
                         var cellText = document.createTextNode(i);
                         var cellText2 = document.createTextNode(i);
@@ -129,7 +130,7 @@
         createBoard(document.getElementById("yourboard"), document.getElementById("enemyboard"));
 
         $(document).ready(function () {
-            $("enemys-field").click(function () {
+            $(".enemys-field").click(function () {
                 let rowcol = this.id.split(',');
                 let r = rowcol[0];
                 let c = rowcol[1];
@@ -141,5 +142,7 @@
                 }
             });
         });
+
+        function lets_play
     </script>
 {% endblock content %}

@@ -3,21 +3,21 @@
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="grid-container">
-                <div class="col-5 grid-child">
+                <div class="col-6 grid-child">
                     <table class="table table-bordered table-dark" id="yourboard">
                     </table>
                 </div>
 
-                <div class=" col-5 grid-child">
+                <div class=" col-6 grid-child">
                     <table class="table table-bordered table-dark" id="enemyboard">
                     </table>
                 </div>
-                <div class="col-5 grid-child">
+                <div class="col-6 grid-child">
                     <table class="table table-bordered table-dark" id="yourboard2">
                     </table>
                 </div>
 
-                <div class=" col-5 grid-child">
+                <div class=" col-6 grid-child">
                     <table class="table table-bordered table-dark" id="enemyboard2">
                     </table>
                 </div>
@@ -129,8 +129,7 @@
                     var cell2 = document.createElement("td");
 
                     var cellText2 = document.createTextNode("0");
-                    cell2.className = "enemys-field";
-                    cell2.id = String.fromCharCode(64 + j) + "," + i;
+
 
                     if (j == 0 && i != 0) {
                         var cellText = document.createTextNode(i);
@@ -144,6 +143,8 @@
                     } else {
                         var cellText = document.createTextNode(boardToDisplay[i - 1][j - 1]);
                         cellText.className = "your-field"
+                        cell2.className = "enemys-field";
+                        cell2.id = j + "," + i;
                     }
 
                     cell.appendChild(cellText);
@@ -179,12 +180,28 @@
                         this.className = "field checkedfield";
                         chosen_field = parseInt(this.textContent);
                         if (chosen_field == 0 && currentPlayer == 1) {
-                            $("#enemyboard").hide();
-                            $("#yourboard").hide();
-                            $("#enemyboard2").show();
-                            $("#yourboard2").show();
-                            currentPlayer = 2;
-                            alert("ruch 2. gracza");
+                            if (board2[r][c] == 0) {
+                                $("#enemyboard").hide();
+                                $("#yourboard").hide();
+                                $("#enemyboard2").show();
+                                $("#yourboard2").show();
+                                currentPlayer = 2;
+                                alert("ruch 2. gracza");
+                            } else if (board2[r][c] != 0) {
+                                let control = 0;
+                                for (let i = 0; i < 10; i++) {
+                                    for (let j = 0; j < 10; j++) {
+                                        if (board2[i][j] = board2[r][c]) {
+                                            control++;
+                                        }
+                                    }
+                                }
+                                if (control == 0) {
+                                    alert("trafiony, zatopiony!")
+                                } else {
+                                    alert("trafiony!")
+                                }
+                            }
                         } else if (chosen_field == 0 && currentPlayer == 2) {
                             $("#enemyboard2").hide();
                             $("#yourboard2").hide();
@@ -199,7 +216,8 @@
                     }
                 }
             );
-        });
+        })
+        ;
 
 
     </script>

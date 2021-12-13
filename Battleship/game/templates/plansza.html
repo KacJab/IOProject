@@ -12,6 +12,15 @@
                     <table class="table table-bordered table-dark" id="enemyboard">
                     </table>
                 </div>
+                <div class="col-5 grid-child">
+                    <table class="table table-bordered table-dark" id="yourboard2">
+                    </table>
+                </div>
+
+                <div class=" col-5 grid-child">
+                    <table class="table table-bordered table-dark" id="enemyboard2">
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -22,9 +31,11 @@
         let board = [];
         let board2 = [];
         let fleet = [];
-        let container1 = document.getElementById("yourboard");
-        let container2 = document.getElementById("enemyboard");
 
+
+        let chosen_field;
+        let game_on = false;
+        let currentPlayer = 1;
         for (let i = 0; i < 10; i++) {
             board[i] = [];
             board2[i] = []
@@ -39,6 +50,14 @@
                 fleet.push(i + 1)
             }
         }
+        randomly_locate_ships(board, fleet);
+        randomly_locate_ships(board2, fleet)
+        console.log(board);
+        console.log(board2);
+
+        console.log(fleet);
+        createBoard(board, document.getElementById("yourboard"), document.getElementById("enemyboard"));
+        createBoard(board2, document.getElementById("yourboard2"), document.getElementById("enemyboard2"));
 
 
         function randomly_locate_ships(boardToEdit, fleet) {
@@ -91,11 +110,7 @@
             return sum;
         }
 
-        function createBoard(boardToDisplay, tableIndex) {
-            let parent = document.getElementById("enemyboard");
-            let parent2 = document.getElementById("yourboard");
-            parent.id = parent.id + tableIndex;
-            parent.id = parent.id + tableIndex;
+        function createBoard(boardToDisplay, container1, container2) {
 
 
             let tbl = container1;
@@ -150,45 +165,37 @@
             tbl2.setAttribute("border", "2");
         }
 
-        randomly_locate_ships(board, fleet);
-        randomly_locate_ships(board2, fleet)
-        console.log(board);
-        console.log(board2);
-
-        console.log(fleet);
-        createBoard(board, "table1");
-        createBoard(board2, "table2");
-
-
-        let chosen_field;
-        let game_on = false;
-        let currentPlayer = 1;
 
         $(document).ready(function () {
-            $(".table2").hide();
+            $("#enemyboard2").hide();
+            $("#yourboard2").hide();
+
             $(".enemys-field").click(function () {
                     let rowcol = this.id.split(',');
                     let r = rowcol[0];
                     let c = rowcol[1];
-                    alert(r + c);
 
                     if (this.className == "enemys-field") {
                         this.className = "field checkedfield";
                         chosen_field = parseInt(this.textContent);
                         if (chosen_field == 0 && currentPlayer == 1) {
-                            $(".table1").hide();
-                            $(".table2").show();
+                            $("#enemyboard").hide();
+                            $("#yourboard").hide();
+                            $("#enemyboard2").show();
+                            $("#yourboard2").show();
                             currentPlayer = 2;
                             alert("ruch 2. gracza");
                         } else if (chosen_field == 0 && currentPlayer == 2) {
-                            $(".table2").hide();
-                            $(".table1").show();
+                            $("#enemyboard2").hide();
+                            $("#yourboard2").hide();
+                            $("#enemyboard").show();
+                            $("#yourboard").show();
                             currentPlayer = 1;
                             alert("ruch 1. gracza");
                         }
                         console.log(chosen_field);
                     } else {
-
+                        alert("już tam strzelałeś!")
                     }
                 }
             );

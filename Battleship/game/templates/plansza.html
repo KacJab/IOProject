@@ -15,15 +15,22 @@
             </div>
         </div>
     </div>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
     <script>
-        var board = [];
-        var fleet = [];
+        let board = [];
+        let board2 = [];
+        let fleet = [];
+        let container1 = document.getElementById("yourboard");
+        let container2 = document.getElementById("enemyboard");
 
         for (let i = 0; i < 10; i++) {
             board[i] = [];
+            board2[i] = []
             for (let j = 0; j < 10; j++) {
                 board[i][j] = 0;
+                board2[i][j] = 0;
             }
         }
 
@@ -34,10 +41,10 @@
         }
 
 
-        function randomly_locate_ships(board, fleet) {
-            var sum = 0;
+        function randomly_locate_ships(boardToEdit, fleet) {
+            let sum = 0;
             while (sum < 20) {
-                var xd = 1;
+                sum = 0;
 
                 for (let i = 0; i < fleet.length; i++) {
                     orient = Math.round(Math.random());
@@ -46,24 +53,25 @@
 
                     for (let s = 1; s <= fleet[i]; s++) {
                         if (orient == 1) {
-                            board[place_start + s][place_on_axis2] = xd;
+                            boardToEdit[place_start + s][place_on_axis2] = i + 1;
                         } else {
-                            board[place_on_axis2][place_start + s] = xd;
+                            boardToEdit[place_on_axis2][place_start + s] = i + 1;
                         }
                     }
                 }
                 for (let i = 0; i < 10; i++) {
                     for (let j = 0; j < 10; j++) {
-                        if (board[i][j] != 0) {
+                        if (boardToEdit[i][j] != 0) {
                             sum++;
                         }
                     }
                 }
+                sum = summingValuesIn2dArray(boardToEdit);
                 if (sum < 20) {
                     for (let i = 0; i < 10; i++) {
 
                         for (let j = 0; j < 10; j++) {
-                            board[i][j] = 0;
+                            boardToEdit[i][j] = 0;
                         }
                     }
                 }
@@ -71,14 +79,32 @@
             }
         }
 
-        function createBoard(div1, div2) {
-            var tbl = div1;
-            var tbl2 = div2;
+        function summingValuesIn2dArray(array) {
+            let sum = 0;
+            for (let i = 0; i < array.length; i++) {
+                for (let j = 0; j < array.length; j++) {
+                    if (array[i][j] != 0) {
+                        sum++;
+                    }
+                }
+            }
+            return sum;
+        }
 
-            var tblBody = document.createElement("tbody");
-            var tblBody2 = document.createElement("tbody");
+        function createBoard(boardToDisplay, tableIndex) {
+            let parent = document.getElementById("enemyboard");
+            let parent2 = document.getElementById("yourboard");
+            parent.id = parent.id + tableIndex;
+            parent.id = parent.id + tableIndex;
 
-            for (var j = 0; j < 11; j++) {
+
+            let tbl = container1;
+            let tbl2 = container2;
+
+            let tblBody = document.createElement("tbody");
+            let tblBody2 = document.createElement("tbody");
+
+            for (let j = 0; j < 11; j++) {
                 var row = document.createElement("tr");
                 var row2 = document.createElement("tr");
 
@@ -89,19 +115,19 @@
 
                     var cellText2 = document.createTextNode("0");
                     cell2.className = "enemys-field";
-                    cell2.id =String.fromCharCode(64+j)+","+i;
+                    cell2.id = String.fromCharCode(64 + j) + "," + i;
 
-                    if(j == 0 && i != 0) {
+                    if (j == 0 && i != 0) {
                         var cellText = document.createTextNode(i);
                         var cellText2 = document.createTextNode(i);
-                    }else if(j== 0 && i == 0){
+                    } else if (j == 0 && i == 0) {
                         var cellText = document.createTextNode("X");
                         var cellText2 = document.createTextNode("X");
-                    }else if(i == 0){
-                        var cellText = document.createTextNode(String.fromCharCode(64+j));
-                        var cellText2 = document.createTextNode(String.fromCharCode(64+j));
-                    }else{
-                        var cellText = document.createTextNode(board[i-1][j-1]);
+                    } else if (i == 0) {
+                        var cellText = document.createTextNode(String.fromCharCode(64 + j));
+                        var cellText2 = document.createTextNode(String.fromCharCode(64 + j));
+                    } else {
+                        var cellText = document.createTextNode(boardToDisplay[i - 1][j - 1]);
                         cellText.className = "your-field"
                     }
 
@@ -125,24 +151,49 @@
         }
 
         randomly_locate_ships(board, fleet);
+        randomly_locate_ships(board2, fleet)
         console.log(board);
+        console.log(board2);
+
         console.log(fleet);
-        createBoard(document.getElementById("yourboard"), document.getElementById("enemyboard"));
+        createBoard(board, "table1");
+        createBoard(board2, "table2");
+
+
+        let chosen_field;
+        let game_on = false;
+        let currentPlayer = 1;
 
         $(document).ready(function () {
+            $(".table2").hide();
             $(".enemys-field").click(function () {
-                let rowcol = this.id.split(',');
-                let r = rowcol[0];
-                let c = rowcol[1];
-                alert(r + ' ' + c);
-                if (this.className === "enemys-field") {
-                    this.className = "field checkedfield";
-                } else {
+                    let rowcol = this.id.split(',');
+                    let r = rowcol[0];
+                    let c = rowcol[1];
+                    alert(r + c);
 
+                    if (this.className == "enemys-field") {
+                        this.className = "field checkedfield";
+                        chosen_field = parseInt(this.textContent);
+                        if (chosen_field == 0 && currentPlayer == 1) {
+                            $(".table1").hide();
+                            $(".table2").show();
+                            currentPlayer = 2;
+                            alert("ruch 2. gracza");
+                        } else if (chosen_field == 0 && currentPlayer == 2) {
+                            $(".table2").hide();
+                            $(".table1").show();
+                            currentPlayer = 1;
+                            alert("ruch 1. gracza");
+                        }
+                        console.log(chosen_field);
+                    } else {
+
+                    }
                 }
-            });
+            );
         });
 
-        function lets_play
+
     </script>
 {% endblock content %}

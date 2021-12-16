@@ -13,9 +13,12 @@ def home(request):
 
 
 @login_required(login_url='login')
-def game(request):
-    return render(request, 'plansza.html')
+def game(request, mode):
+    context = {'mode': mode}
+    return render(request, 'plansza.html', context)
 
+def gamemode(request):
+    return render(request, 'trybgry.html')
 
 # @login_required(login_url='login')
 # def game(request):

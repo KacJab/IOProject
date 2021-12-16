@@ -41,10 +41,10 @@
       <div class="text-center">
         <h1 class="mx-auto my-0 text-uppercase">BattleShip</h1>
         <h2 class="text-white-50 mx-auto mt-2 mb-5">Wybierz swojego przeciwnika:</h2>
-        <a class="btn btn-primary" href="plansza.html">AI łatwy</a>
-        <a class="btn btn-primary" href="plansza.html">AI średni</a>
-        <a class="btn btn-primary" href="plansza.html">AI trudny</a>
-        <a class="btn btn-primary" href="plansza.html">inny gracz</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='easy' %}">AI łatwy</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='medium' %}">AI średni</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='hard' %}">AI trudny</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='multiplayer' %}">inny gracz</a>
       </div>
     </div>
   </div>

@@ -11,10 +11,9 @@ from .models import Player
 class MyUserAdmin(UserAdmin):
     add_form = CreateUserForm
     model = Player
-    list_display = ['username', 'email', 'password', 'mobile_number']
-    # fieldsets = UserAdmin.fieldsets + (None, {'fields': ('mobile_number',)})
+    list_display = ['username', 'email', 'password', 'image']
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('mobile_number', )}),
+        (None, {'fields': ('image', )}),
     )
 
 admin.site.register(Player, MyUserAdmin)

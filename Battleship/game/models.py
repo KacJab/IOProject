@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Player(AbstractUser):
-    mobile_number = models.CharField(max_length=10, blank=True)
+    image = models.ImageField(null=True, blank=True)
 
 
 class Game(models.Model):

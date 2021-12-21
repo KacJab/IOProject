@@ -8,7 +8,7 @@ from .models import Player
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = Player
-        fields = ['username', 'email', 'password1', 'password2', 'mobile_number']
+        fields = ['username', 'email', 'password1', 'password2', 'image']
 
     def __init__(self, *args, **kwargs):
         super(CreateUserForm, self).__init__(*args, **kwargs)
@@ -17,6 +17,7 @@ class CreateUserForm(UserCreationForm):
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
+        # self.fields['image'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
         self.fields['email'].widget.attrs['placeholder'] = 'email'
         self.fields['password1'].widget.attrs['placeholder'] = 'password1'

@@ -33,7 +33,7 @@ def gamemode(request):
 
 def registerPage(request):
     if request.user.is_authenticated:
-        return redirect('gamemode')
+        return redirect('home')
     else:
         form = CreateUserForm()
         if request.method == 'POST':
@@ -50,7 +50,7 @@ def registerPage(request):
 
 def loginPage(request):
     if request.user.is_authenticated:
-        return redirect('gamemode')
+        return redirect('home')
     else:
         if request.method == "POST":
             username = request.POST.get('username')
@@ -69,3 +69,8 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+
+@login_required(login_url='login')
+def statistics(request):
+    return render(request, 'stat.html')

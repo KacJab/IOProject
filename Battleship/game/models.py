@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Player(AbstractUser):
-    avatar = models.ImageField(default="default.png", null=True, blank=True)
+    avatar = models.ImageField(default="images/default.png", null=True, blank=True, upload_to="images")
 
 
 class Game(models.Model):

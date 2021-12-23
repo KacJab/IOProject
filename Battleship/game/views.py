@@ -37,7 +37,7 @@ def registerPage(request):
     else:
         form = CreateUserForm()
         if request.method == 'POST':
-            form = CreateUserForm(request.POST)
+            form = CreateUserForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get('username')

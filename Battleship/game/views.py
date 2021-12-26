@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 def home(request):
@@ -17,8 +18,10 @@ def game(request, mode):
     context = {'mode': mode}
     return render(request, 'plansza.html', context)
 
+
 def gamemode(request):
     return render(request, 'trybgry.html')
+
 
 # @login_required(login_url='login')
 # def game(request):
@@ -74,3 +77,17 @@ def logoutUser(request):
 @login_required(login_url='login')
 def statistics(request):
     return render(request, 'stat.html')
+
+
+def save_result(request, mode):
+    if request.method == "POST" and request.is_ajax():
+        player1 = request.POST.get('player1', None)
+        player2 = request.POST.get('player2', None)
+        response = {
+            'p1': mode
+        }
+        if player1 and player2:
+            response = {
+                'msg': 'Success!!'
+            }
+        return JsonResponse(response)

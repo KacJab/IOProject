@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from .models import Player
+from .models import Result
 
 
 class CreateUserForm(UserCreationForm):
@@ -21,3 +22,11 @@ class CreateUserForm(UserCreationForm):
         self.fields['email'].widget.attrs['placeholder'] = 'email'
         self.fields['password1'].widget.attrs['placeholder'] = 'password1'
         self.fields['password2'].widget.attrs['placeholder'] = 'password2'
+
+
+class ResultForm(forms.ModelForm):
+    fields = ['player1', 'player2']
+
+    class Meta:
+        model = Result
+        fields = "__all__"

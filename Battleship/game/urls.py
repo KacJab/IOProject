@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('gamemode/', views.gamemode, name='gamemode'),
     path('game/<mode>/', views.game, name='game'),

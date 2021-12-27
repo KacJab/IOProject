@@ -22,3 +22,8 @@ class Game(models.Model):
     user1_result = models.PositiveIntegerField()
     user2_result = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now_add=True, null=True)
+
+
+class Result (models.Model):
+    player1 = models.CharField(max_length=50)
+    player2 = models.CharField(max_length=50)

@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from .forms import CreateUserForm
 from .models import Player
+from .models import Result
 
 
 # Register your models here.
@@ -17,3 +18,4 @@ class MyUserAdmin(UserAdmin):
     )
 
 admin.site.register(Player, MyUserAdmin)
+admin.site.register(Result)

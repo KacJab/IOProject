@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from .forms import ResultForm
+from django.core import serializers
 
 
 def home(request):
@@ -83,11 +85,11 @@ def save_result(request, mode):
     if request.method == "POST" and request.is_ajax():
         player1 = request.POST.get('player1', None)
         player2 = request.POST.get('player2', None)
-        response = {
-            'p1': mode
-        }
-        if player1 and player2:
-            response = {
-                'msg': 'Success!!'
-            }
-        return JsonResponse(response)
+        form = ResultForm(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            serialized_instance = serializers.serialize('json', [instance, ])
+            return JsonResponse({"instance": serialized_instance}, status=200)
+
+        else:
+            return JsonResponse({"error": ":(("}, status=400)

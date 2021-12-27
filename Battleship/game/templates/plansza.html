@@ -322,8 +322,8 @@
                 type : "POST",
                 url: "{% url 'saveresult' mode %}",
                 data: {
-                 first_name : $('#player1').val(),
-                 last_name : $('#player2').val(),
+                 player1 : $('#player1').val(),
+                 player2 : $('#player2').val(),
                  csrfmiddlewaretoken: '{{ csrf_token }}',
                  dataType: "json",
                 },

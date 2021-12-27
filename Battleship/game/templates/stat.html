@@ -9,85 +9,91 @@
               <tr>
                 <th>#</th>
                 <th>Username</th>
-                <th>vs gracz</th>
-                <th>vs łatwy</th>
-                <th>vs średni</th>
-                <th>vs trudny</th>
+                <th><a id="multiplayer" onclick="chooseMode(this.id)" class="selectedMode">vs gracz</a></th>
+                <th><a id="easy" onclick="chooseMode(this.id)">vs łatwy</a></th>
+                <th><a id="medium" onclick="chooseMode(this.id)">vs średni</a></th>
+                <th><a id="hard" onclick="chooseMode(this.id)">vs trudny</a></th>
               </tr>
               </thead>
-                <tbody>
-                  {% for result in results %}
+                <tbody id="stat_table">
+                  {% for result in result_multiplayer %}
                       <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ result.player }}</td>
+                        <td>{{ result.result }}</td>
+                        <td>{{ result.result }}</td>
+                        <td>{{ result.result }}</td>
                         <td>{{ result.result }}</td>
                       </tr>
                   {% endfor %}
                 </tbody>
             </table>
-      <!--
-        <table class="table table-hover table-dark">
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>vs gracz</th>
-            <th>vs łatwy</th>
-            <th>vs średni</th>
-            <th>vs trudny</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th scope="row">-</th>
-            <td>AI łatwy</td>
-            <td>-</td>
-            <td>5</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <th scope="row">-</th>
-          <td>AI średni</td>
-          <td>-</td>
-          <td>-</td>
-          <td>15</td>
-          <td>-</td>
-          </tr>
-          <th scope="row">-</th>
-          <td>AI trudny</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>20</td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>5</td>
-            <td>10</td>
-            <td>20</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>5</td>
-            <td>10</td>
-            <td>20</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>5</td>
-            <td>10</td>
-            <td>20</td>
-            <td>0</td>
-          </tr>
-          </tbody>
-        </table>
-        -->
       </div>
     </div>
   </div>
+
+    <style>
+        .selectedMode{
+            background-color: red;
+        }
+    </style>
+
+    <script>
+        function chooseMode(mode){
+            var element = document.getElementsByClassName('selectedMode');
+                element[0].classList.remove("selectedMode");
+            document.getElementById(mode).classList.add("selectedMode");
+
+            var t = "";
+            if(mode === "multiplayer") {
+                {% for result in result_multiplayer %}
+                    t += "<tr>";
+                    t += "<td>{{ forloop.counter }} </td>";
+                    t += "<td>{{ result.player }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "</tr>";
+                {% endfor %}
+            }
+            else if(mode === "easy") {
+                {% for result in result_easy %}
+                    t += "<tr>";
+                    t += "<td>{{ forloop.counter }} </td>";
+                    t += "<td>{{ result.player }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "</tr>";
+                {% endfor %}
+            }
+            else if(mode === "medium") {
+                {% for result in result_medium %}
+                    t += "<tr>";
+                    t += "<td>{{ forloop.counter }} </td>";
+                    t += "<td>{{ result.player }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "</tr>";
+                {% endfor %}
+            }
+            else if(mode === "hard") {
+                {% for result in result_hard %}
+                    t += "<tr>";
+                    t += "<td>{{ forloop.counter }} </td>";
+                    t += "<td>{{ result.player }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.result }} </td>";
+                    t += "</tr>";
+                {% endfor %}
+            }
+            document.getElementById("stat_table").innerHTML = t;
+        }
+    </script>
 {% endblock content %}

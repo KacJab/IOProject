@@ -67,9 +67,17 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def statistics(request):
-    # results = Result.objects.all()
-    results = Result.objects.order_by("-result")[:5]
-    context = {"results": results}
+    # results = Result.objects.order_by("-result")[:5]
+    result_multiplayer = Result.objects.filter(mode="multiplayer").order_by("-result")[:5]
+    result_easy = Result.objects.filter(mode="easy").order_by("-result")[:5]
+    result_medium = Result.objects.filter(mode="medium").order_by("-result")[:5]
+    result_hard = Result.objects.filter(mode="hard").order_by("-result")[:5]
+    context = {
+        "result_multiplayer": result_multiplayer,
+        "result_easy": result_easy,
+        "result_medium": result_medium,
+        "result_hard": result_hard,
+    }
     return render(request, 'stat.html', context)
 
 

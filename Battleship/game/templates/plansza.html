@@ -24,10 +24,9 @@
             </div>
         </div>
         <form id="resultform" method="POST">
-            <input id="player1" type="hidden" name="player1" value="{{ request.user }}">
-            <input id="player2" type="hidden" name="player2" value="xddd">
-            <input id="result_player1" type="hidden" name="result_player1" value=123>
-            <input id="result_player2" type="hidden" name="result_player2" value=456>
+            <input id="player" type="hidden" name="player" value="{{ request.user }}">
+            <input id="mode" type="hidden" name="mode" value="{{ mode }}">
+            <input id="result" type="hidden" name="result" value=100>
             <input  type="submit" name="submit" value="submit">
         </form>
     </div>
@@ -324,10 +323,9 @@
                 type : "POST",
                 url: "{% url 'saveresult' mode %}",
                 data: {
-                 player1 : $('#player1').val(),
-                 player2 : $('#player2').val(),
-                 result_player1: $('#result_player1').val(),
-                 result_player2 : $('#result_player2').val(),
+                 player : $('#player').val(),
+                 mode : $('#mode').val(),
+                 result: $('#result').val(),
                  csrfmiddlewaretoken: '{{ csrf_token }}',
                  dataType: "json",
                 },

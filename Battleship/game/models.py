@@ -25,7 +25,13 @@ class Game(models.Model):
 
 
 class Result (models.Model):
-    player1 = models.CharField(max_length=50)
-    player2 = models.CharField(max_length=50)
-    result_player1 = models.PositiveIntegerField()
-    result_player2 = models.PositiveIntegerField()
+    MODE = (
+        ('multiplayer', 'multiplayer'),
+        ('easy', 'easy'),
+        ('medium', 'medium'),
+        ('hard', 'hard')
+    )
+    # player = models.ForeignKey(Player, null=True, related_name='player', on_delete=models.SET_NULL)
+    player = models.CharField(max_length=50)
+    mode = models.CharField(choices=MODE, max_length=20)
+    result = models.PositiveIntegerField()

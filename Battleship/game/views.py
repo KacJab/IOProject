@@ -67,11 +67,13 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def statistics(request):
-    results = Result.objects.all()
+    # results = Result.objects.all()
+    results = Result.objects.order_by("-result")[:5]
     context = {"results": results}
     return render(request, 'stat.html', context)
 
 
+@login_required(login_url='login')
 def save_result(request, mode):
     if request.method == "POST" and request.is_ajax():
         form = ResultForm(request.POST)

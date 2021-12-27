@@ -25,7 +25,7 @@ class CreateUserForm(UserCreationForm):
 
 
 class ResultForm(forms.ModelForm):
-    fields = ['player1', 'player2']
+    fields = ['player1', 'player2', 'result_player1', 'result_player2']
 
     class Meta:
         model = Result

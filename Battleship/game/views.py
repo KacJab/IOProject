@@ -83,8 +83,6 @@ def statistics(request):
 
 def save_result(request, mode):
     if request.method == "POST" and request.is_ajax():
-        player1 = request.POST.get('player1', None)
-        player2 = request.POST.get('player2', None)
         form = ResultForm(request.POST)
         if form.is_valid():
             instance = form.save()

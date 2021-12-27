@@ -27,3 +27,5 @@ class Game(models.Model):
 class Result (models.Model):
     player1 = models.CharField(max_length=50)
     player2 = models.CharField(max_length=50)
+    result_player1 = models.PositiveIntegerField()
+    result_player2 = models.PositiveIntegerField()

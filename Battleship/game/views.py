@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .forms import ResultForm
 from django.core import serializers
-
+from .models import Result
 
 def home(request):
     return render(request, 'index.html', {})
@@ -23,17 +23,6 @@ def game(request, mode):
 
 def gamemode(request):
     return render(request, 'trybgry.html')
-
-
-# @login_required(login_url='login')
-# def game(request):
-#     board = Board()
-#     board.randomly_locate_ships(Fleet())
-#     return render(request, 'game.html', {
-#         'game_title': 'Battleship',
-#         'board': board.board,
-#         'board_ids': board.board_ids,
-#     })
 
 
 def registerPage(request):
@@ -78,7 +67,9 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def statistics(request):
-    return render(request, 'stat.html')
+    results = Result.objects.all()
+    context = {"results": results}
+    return render(request, 'stat.html', context)
 
 
 def save_result(request, mode):

@@ -4,21 +4,21 @@
         <div class="d-flex justify-content-center">
             <div class="grid-container">
                 <div class="col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="yourboard">
+                    <table class="table table-bordered table-dark" id="player_1_own_board">
                     </table>
                 </div>
 
                 <div class=" col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="enemyboard">
+                    <table class="table table-bordered table-dark" id="player_1_enemy_board">
                     </table>
                 </div>
                 <div class="col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="yourboard2">
+                    <table class="table table-bordered table-dark" id="player_2_own_board">
                     </table>
                 </div>
 
                 <div class=" col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="enemyboard2">
+                    <table class="table table-bordered table-dark" id="player_2_enemy_board">
                     </table>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <input id="player" type="hidden" name="player" value="{{ request.user }}">
             <input id="mode" type="hidden" name="mode" value="{{ mode }}">
             <input id="result" type="hidden" name="result" value=100>
-            <input  type="submit" name="submit" value="submit">
+            <input type="submit" name="submit" value="submit">
         </form>
     </div>
 
@@ -119,8 +119,9 @@
                         cellText2 = document.createTextNode(String.fromCharCode(64 + j));
                     } else {
                         cellText = document.createTextNode(boardToDisplay[j - 1][i - 1]);
-                        cellText.className = "your-field"
+                        cell.className = "your-field"
                         cell2.className = "enemys-field";
+                        cell.id = j + "," + i;
                         cell2.id = j + "," + i;
                     }
 
@@ -143,7 +144,7 @@
             tbl2.setAttribute("border", "2");
         }
 
-        function easy_mode(play, transcript, enemyboard) {
+        function easy_mode(play, transcript, player_1_enemy_board) {
             while (play = 2) {
                 let r = Math.floor(Math.random() * 10);
                 let c = Math.floor(Math.random() * 10);
@@ -152,30 +153,31 @@
                     c = Math.floor(Math.random() * 10);
                 }
 
-                if (enemyboard[r - 1][c - 1] == 0) {
+                if (player_1_enemy_board[r - 1][c - 1] == 0) {
                     transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
 
                     play = 2;
                     alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 2. gracza");
-                } else if (enemyboard[r - 1][c - 1] != 0) {
+                } else if (player_1_enemy_board[r - 1][c - 1] != 0) {
                     transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "x");
-                    console.log(enemyboard[r - 1][c - 1])
+                    console.log(player_1_enemy_board[r - 1][c - 1])
 
                     let control = 0;
                     for (let i = 0; i < 10; i++) {
                         for (let j = 0; j < 10; j++) {
-                            if (enemyboard[i][j] == enemyboard[r - 1][c - 1]) {
+                            if (player_1_enemy_board[i][j] == player_1_enemy_board[r - 1][c - 1]) {
                                 control++;
                             }
                         }
                     }
-                    enemyboard[r - 1][c - 1] = 0;
+                    player_1_enemy_board[r - 1][c - 1] = 0;
                     if (control == 1) {
                         alert("trafiony, zatopiony!" + parseInt(control));
                     } else {
                         alert("trafiony!" + parseInt(control));
                     }
-                }plansza.html
+                }
+                plansza.html
 
             }
         }
@@ -218,11 +220,33 @@
             console.log(board2);
 
             console.log(fleet);
-            createBoard(board, document.getElementById("yourboard"), document.getElementById("enemyboard"));
-            createBoard(board2, document.getElementById("yourboard2"), document.getElementById("enemyboard2"));
+            createBoard(board, document.getElementById("player_1_own_board"), document.getElementById("player_1_enemy_board"));
+            createBoard(board2, document.getElementById("player_2_own_board"), document.getElementById("player_2_enemy_board"));
 
-            $("#enemyboard2").hide();
-            $("#yourboard2").hide();
+            $("#player_2_enemy_board").hide();
+            $("#player_2_own_board").hide();
+
+
+            for (let iter = 0; iter < 2; iter++) {
+                if (iter == 0) {
+                    var nodes = document.getElementById('player_1_own_board').childNodes;
+                    var player = 'player_1_own_board,';
+                } else {
+                    var nodes = document.getElementById('player_2_own_board').childNodes;
+                    var player = 'player_2_own_board,';
+                }
+                for (var i = 0; i < nodes.length; i++) {
+                    let childs = nodes[i].childNodes;
+                    for (var k = 0; k < childs.length; k++) {
+                        let childs2 = childs[k].childNodes;
+                        for (var j = 0; j < childs2.length; j++) {
+                            childs2[j].id = player + childs2[j].id;
+                            console.log("liczba nodów to:" + j);
+                        }
+                    }
+                }
+            }
+
 
             $(".enemys-field").click(function () {
                 let rowcol = this.id.split(',');
@@ -239,15 +263,20 @@
                         console.log(r + c);
 
                         if (board2[r - 1][c - 1] == 0) {
+                            document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "blue";
+
+                            this.style.backgroundColor = "blue";
                             player1_game_transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
 
-                            $("#enemyboard").hide();
-                            $("#yourboard").hide();
-                            $("#enemyboard2").show();
-                            $("#yourboard2").show();
+                            $("#player_1_enemy_board").hide();
+                            $("#player_1_own_board").hide();
+                            $("#player_2_enemy_board").show();
+                            $("#player_2_own_board").show();
                             currentPlayer = 2;
                             alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 2. gracza");
                         } else if (board2[r - 1][c - 1] != 0) {
+                            document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "red";
+                            this.style.backgroundColor = "red";
                             controlSum++;
                             player1_game_transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "x");
                             console.log(board2[r - 1][c - 1])
@@ -272,17 +301,23 @@
                         }
                     } else if (currentPlayer == 2) {
                         if (difficulty_level == 0) {
+
                             if (board[r - 1][c - 1] === 0) {
+
+                                document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "blue";
+                                this.style.backgroundColor = "blue";
                                 player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "o");
 
-                                $("#enemyboard2").hide();
-                                $("#yourboard2").hide();
-                                $("#enemyboard").show();
-                                $("#yourboard").show();
+                                $("#player_2_enemy_board").hide();
+                                $("#player_2_own_board").hide();
+                                $("#player_1_enemy_board").show();
+                                $("#player_1_own_board").show();
                                 currentPlayer = 1;
                                 alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
 
                             } else if (board[r - 1][c - 1] != 0) {
+                                document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "red";
+                                this.style.backgroundColor = "red";
                                 controlSum2++;
                                 player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "x");
 
@@ -317,27 +352,27 @@
     </script>
 
     <script>
-    $('#resultform').on('submit', function(e){
-        e.preventDefault();
-        $.ajax({
-                type : "POST",
+        $('#resultform').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
                 url: "{% url 'saveresult' mode %}",
                 data: {
-                 player : $('#player').val(),
-                 mode : $('#mode').val(),
-                 result: $('#result').val(),
-                 csrfmiddlewaretoken: '{{ csrf_token }}',
-                 dataType: "json",
+                    player: $('#player').val(),
+                    mode: $('#mode').val(),
+                    result: $('#result').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    dataType: "json",
                 },
 
-                success: function(data){
+                success: function (data) {
                     console.log(data)
                 },
 
-                failure: function() {
+                failure: function () {
 
                 }
             });
-    });
+        });
     </script>
 {% endblock content %}

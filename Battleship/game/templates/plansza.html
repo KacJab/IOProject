@@ -144,6 +144,8 @@
             tbl2.setAttribute("border", "2");
         }
 
+
+
         function easy_mode(play, transcript, player_1_enemy_board) {
             while (play = 2) {
                 let r = Math.floor(Math.random() * 10);
@@ -248,7 +250,8 @@
             }
 
 
-            $(".enemys-field").click(function () {
+            $(".enemys-field").click(function () {      //multiplayer
+
                 let rowcol = this.id.split(',');
                 let r = parseInt(rowcol[0]);
                 let c = parseInt(rowcol[1]);
@@ -260,7 +263,6 @@
                     this.className = "field checkedfield";
                     if (currentPlayer == 1) {
 
-                        console.log(r + c);
 
                         if (board2[r - 1][c - 1] == 0) {
                             document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "blue";

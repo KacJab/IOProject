@@ -24,10 +24,10 @@
             </div>
         </div>
         <form id="resultform" method="POST">
-            <input id="player" type="hidden" name="player" value="{{ request.user }}">
-            <input id="mode" type="hidden" name="mode" value="{{ mode }}">
-            <input id="result" type="hidden" name="result" value=100>
-            <input type="submit" name="submit" value="submit">
+            {% csrf_token %}
+            <input id="player" type="hidden" name="player">
+            <input id="mode" type="hidden" name="mode">
+            <input id="result" type="hidden" name="result">
         </form>
     </div>
 
@@ -195,7 +195,8 @@
 
             let controlSum = 0;
             let controlSum2 = 0;
-
+            let player1count = 0;
+            let player2count = 0;
 
             let currentPlayer = 1;
             for (let i = 0; i < 10; i++) {
@@ -262,8 +263,7 @@
                 if (this.className === "enemys-field") {
                     this.className = "field checkedfield";
                     if (currentPlayer == 1) {
-
-
+                        player1count++;
                         if (board2[r - 1][c - 1] == 0) {
                             document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "blue";
 
@@ -302,6 +302,7 @@
                             alert("koniec gry wygrał gracz 1.");
                         }
                     } else if (currentPlayer == 2) {
+                        player2count++;
                         if (difficulty_level == 0) {
 
                             if (board[r - 1][c - 1] === 0) {
@@ -344,6 +345,10 @@
                         }
                         if (controlSum2 == 20) {
                             alert("koniec gry, wygrał gracz 2.");
+                            let result_player1 = 100*(controlSum/player1count);
+                            document.getElementById('player').value="{{ request.user }}";
+                            document.getElementById('mode').value="{{ mode }}";
+                            document.getElementById('result').value=result_player1;
                         }
                     }
                 } else {
@@ -369,6 +374,7 @@
 
                 success: function (data) {
                     console.log(data)
+                    location.href = {% url 'statistics' %}
                 },
 
                 failure: function () {

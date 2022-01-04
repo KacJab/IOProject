@@ -347,30 +347,29 @@
                         }
                         if (controlSum2 == 20) {
                             alert("koniec gry, wygrał gracz 2.");
-
+                            if ( "{{ mode }}" == "multiplayer"){
+                                let result1 = 100*(controlSum/player1count);
+                                let result2 = 100*(controlSum/player2count);
+                                document.getElementById('mode').value="{{ mode }}";
+                                document.getElementById('player1').value="{{ request.user }}";
+                                document.getElementById('player2').value="{{ request.user }}";
+                                document.getElementById('result1').value=result1;
+                                document.getElementById('result2').value=result2;
+                                $('#resultform').trigger('submit');
+                            }
+                            else{
+                                let result1 = 100*(controlSum/player1count);
+                                document.getElementById('mode').value="{{ mode }}";
+                                document.getElementById('player1').value="{{ request.user }}";
+                                document.getElementById('player2').value=0;
+                                document.getElementById('result1').value=result1;
+                                document.getElementById('result2').value=0;
+                                $('#resultform').trigger('submit');
+                            }
                         }
                     }
                 } else {
                     alert("już tam strzelałeś!");
-                    if ( "{{ mode }}" == "multiplayer"){
-                        let result1 = 100*(controlSum/player1count);
-                        let result2 = 100*(controlSum/player2count);
-                        document.getElementById('mode').value="{{ mode }}";
-                        document.getElementById('player1').value="{{ request.user }}";
-                        document.getElementById('player2').value="{{ request.user }}";
-                        document.getElementById('result1').value=result1;
-                        document.getElementById('result2').value=result2;
-                        $('#resultform').trigger('submit');
-                    }
-                    else{
-                        let result1 = 100*(controlSum/player1count);
-                        document.getElementById('mode').value="{{ mode }}";
-                        document.getElementById('player1').value="{{ request.user }}";
-                        document.getElementById('player2').value=0;
-                        document.getElementById('result1').value=result1;
-                        document.getElementById('result2').value=0;
-                        $('#resultform').trigger('submit');
-                    }
                 }
             });
         });

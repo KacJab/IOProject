@@ -26,6 +26,6 @@ class Result (models.Model):
     player2 = models.CharField(max_length=50)
     result1 = models.PositiveIntegerField()
     result2 = models.PositiveIntegerField()
-    transcript1 = models.CharField(max_length=500)
-    transcript2 = models.CharField(max_length=500)
+    transcript1 = models.TextField()
+    transcript2 = models.TextField()
     # date = models.DateTimeField(auto_now_add=True, null=True)

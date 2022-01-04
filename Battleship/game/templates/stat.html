@@ -20,7 +20,7 @@
                       <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ result.username }}</td>
-                        <td>{{ result.result_multiplayer }}</td>
+                        <td style='background-color: red;'>{{ result.result_multiplayer }}</td>
                         <td>{{ result.result_easy }}</td>
                         <td>{{ result.result_medium }}</td>
                         <td>{{ result.result_hard }}</td>
@@ -50,7 +50,7 @@
                     t += "<tr>";
                     t += "<td>{{ forloop.counter }} </td>";
                     t += "<td>{{ result.username }} </td>";
-                    t += "<td>{{ result.result_multiplayer }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_multiplayer }} </td>";
                     t += "<td>{{ result.result_easy }} </td>";
                     t += "<td>{{ result.result_medium }} </td>";
                     t += "<td>{{ result.result_hard }} </td>";
@@ -63,7 +63,7 @@
                     t += "<td>{{ forloop.counter }} </td>";
                     t += "<td>{{ result.username }} </td>";
                     t += "<td>{{ result.result_multiplayer }} </td>";
-                    t += "<td>{{ result.result_easy }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_easy }} </td>";
                     t += "<td>{{ result.result_medium }} </td>";
                     t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
@@ -76,7 +76,7 @@
                     t += "<td>{{ result.username }} </td>";
                     t += "<td>{{ result.result_multiplayer }} </td>";
                     t += "<td>{{ result.result_easy }} </td>";
-                    t += "<td>{{ result.result_medium }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_medium }} </td>";
                     t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
@@ -89,7 +89,7 @@
                     t += "<td>{{ result.result_multiplayer }} </td>";
                     t += "<td>{{ result.result_easy }} </td>";
                     t += "<td>{{ result.result_medium }} </td>";
-                    t += "<td>{{ result.result_hard }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
             }

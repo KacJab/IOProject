@@ -30,6 +30,8 @@
             <input id="player2" type="hidden" name="player2">
             <input id="result1" type="hidden" name="result1">
             <input id="result2" type="hidden" name="result2">
+            <input id="transcript1" type="hidden" name="transcript1">
+            <input id="transcript2" type="hidden" name="transcript2">
         </form>
     </div>
 
@@ -181,7 +183,6 @@
                         alert("trafiony!" + parseInt(control));
                     }
                 }
-                plansza.html
 
             }
         }
@@ -347,29 +348,33 @@
                         }
                         if (controlSum2 == 20) {
                             alert("koniec gry, wygrał gracz 2.");
-                            if ( "{{ mode }}" == "multiplayer"){
-                                let result1 = 100*(controlSum/player1count);
-                                let result2 = 100*(controlSum/player2count);
-                                document.getElementById('mode').value="{{ mode }}";
-                                document.getElementById('player1').value="{{ request.user }}";
-                                document.getElementById('player2').value="{{ request.user }}";
-                                document.getElementById('result1').value=result1;
-                                document.getElementById('result2').value=result2;
-                                $('#resultform').trigger('submit');
-                            }
-                            else{
-                                let result1 = 100*(controlSum/player1count);
-                                document.getElementById('mode').value="{{ mode }}";
-                                document.getElementById('player1').value="{{ request.user }}";
-                                document.getElementById('player2').value=0;
-                                document.getElementById('result1').value=result1;
-                                document.getElementById('result2').value=0;
-                                $('#resultform').trigger('submit');
-                            }
                         }
                     }
                 } else {
                     alert("już tam strzelałeś!");
+                    if ( "{{ mode }}" == "multiplayer"){
+                        let result1 = 100*(controlSum/player1count);
+                        let result2 = 100*(controlSum/player2count);
+                        document.getElementById('mode').value="{{ mode }}";
+                        document.getElementById('player1').value="{{ request.user }}";
+                        document.getElementById('player2').value="{{ request.user }}";
+                        document.getElementById('result1').value=result1;
+                        document.getElementById('result2').value=result2;
+                        document.getElementById('transcript1').value=player1_game_transcript;
+                        document.getElementById('transcript2').value=player2_game_transcript;
+                        $('#resultform').trigger('submit');
+                    }
+                    else{
+                        let result1 = 100*(controlSum/player1count);
+                        document.getElementById('mode').value="{{ mode }}";
+                        document.getElementById('player1').value="{{ request.user }}";
+                        document.getElementById('player2').value="-";
+                        document.getElementById('result1').value=result1;
+                        document.getElementById('result2').value=0;
+                        document.getElementById('transcript1').value=player1_game_transcript;
+                        document.getElementById('transcript2').value=player2_game_transcript;
+                        $('#resultform').trigger('submit');
+                    }
                 }
             });
         });
@@ -387,6 +392,8 @@
                     player2: $('#player2').val(),
                     result1: $('#result1').val(),
                     result2: $('#result2').val(),
+                    transcript1: $('#transcript1').val(),
+                    transcript2: $('#transcript2').val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     dataType: "json",
                 },

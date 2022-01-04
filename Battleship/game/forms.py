@@ -1,7 +1,5 @@
-from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.contrib.auth.models import User
 from .models import Player
 from .models import Result
 
@@ -25,7 +23,7 @@ class CreateUserForm(UserCreationForm):
 
 
 class ResultForm(forms.ModelForm):
-    fields = ['mode', 'player1', 'player2', 'result1', 'result2']
+    fields = ['mode', 'player1', 'player2', 'result1', 'result2', 'transcript1', 'transcript2']
 
     class Meta:
         model = Result

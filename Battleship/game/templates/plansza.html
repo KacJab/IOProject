@@ -25,9 +25,11 @@
         </div>
         <form id="resultform" method="POST">
             {% csrf_token %}
-            <input id="player" type="hidden" name="player">
             <input id="mode" type="hidden" name="mode">
-            <input id="result" type="hidden" name="result">
+            <input id="player1" type="hidden" name="player1">
+            <input id="player2" type="hidden" name="player2">
+            <input id="result1" type="hidden" name="result1">
+            <input id="result2" type="hidden" name="result2">
         </form>
     </div>
 
@@ -345,14 +347,30 @@
                         }
                         if (controlSum2 == 20) {
                             alert("koniec gry, wygrał gracz 2.");
-                            let result_player1 = 100*(controlSum/player1count);
-                            document.getElementById('player').value="{{ request.user }}";
-                            document.getElementById('mode').value="{{ mode }}";
-                            document.getElementById('result').value=result_player1;
+
                         }
                     }
                 } else {
-                    alert("już tam strzelałeś!")
+                    alert("już tam strzelałeś!");
+                    if ( "{{ mode }}" == "multiplayer"){
+                        let result1 = 100*(controlSum/player1count);
+                        let result2 = 100*(controlSum/player2count);
+                        document.getElementById('mode').value="{{ mode }}";
+                        document.getElementById('player1').value="{{ request.user }}";
+                        document.getElementById('player2').value="{{ request.user }}";
+                        document.getElementById('result1').value=result1;
+                        document.getElementById('result2').value=result2;
+                        $('#resultform').trigger('submit');
+                    }
+                    else{
+                        let result1 = 100*(controlSum/player1count);
+                        document.getElementById('mode').value="{{ mode }}";
+                        document.getElementById('player1').value="{{ request.user }}";
+                        document.getElementById('player2').value=0;
+                        document.getElementById('result1').value=result1;
+                        document.getElementById('result2').value=0;
+                        $('#resultform').trigger('submit');
+                    }
                 }
             });
         });
@@ -365,9 +383,11 @@
                 type: "POST",
                 url: "{% url 'saveresult' mode %}",
                 data: {
-                    player: $('#player').val(),
                     mode: $('#mode').val(),
-                    result: $('#result').val(),
+                    player1: $('#player1').val(),
+                    player2: $('#player2').val(),
+                    result1: $('#result1').val(),
+                    result2: $('#result2').val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     dataType: "json",
                 },

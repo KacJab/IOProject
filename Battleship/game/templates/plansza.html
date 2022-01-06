@@ -25,9 +25,13 @@
         </div>
         <form id="resultform" method="POST">
             {% csrf_token %}
-            <input id="player" type="hidden" name="player">
             <input id="mode" type="hidden" name="mode">
-            <input id="result" type="hidden" name="result">
+            <input id="player1" type="hidden" name="player1">
+            <input id="player2" type="hidden" name="player2">
+            <input id="result1" type="hidden" name="result1">
+            <input id="result2" type="hidden" name="result2">
+            <input id="transcript1" type="hidden" name="transcript1">
+            <input id="transcript2" type="hidden" name="transcript2">
         </form>
     </div>
 
@@ -291,8 +295,8 @@
                 console.log("board 1:");
                 console.log(board);
 
-                console.log("board 2:");
-                console.log(board2);
+            console.log("board 2:");
+            console.log(board2);
 
                 console.log(fleet);
                 createBoard(board, document.getElementById("player_1_own_board"), document.getElementById("player_1_enemy_board"));
@@ -448,9 +452,13 @@
                 type: "POST",
                 url: "{% url 'saveresult' mode %}",
                 data: {
-                    player: $('#player').val(),
                     mode: $('#mode').val(),
-                    result: $('#result').val(),
+                    player1: $('#player1').val(),
+                    player2: $('#player2').val(),
+                    result1: $('#result1').val(),
+                    result2: $('#result2').val(),
+                    transcript1: $('#transcript1').val(),
+                    transcript2: $('#transcript2').val(),
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     dataType: "json",
                 },

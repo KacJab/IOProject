@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from .forms import ResultForm
 from django.core import serializers
 from .models import Result
+from .models import Player
 
 def home(request):
     return render(request, 'index.html', {})
@@ -68,15 +69,15 @@ def logoutUser(request):
 @login_required(login_url='login')
 def statistics(request):
     # results = Result.objects.order_by("-result")[:5]
-    result_multiplayer = Result.objects.filter(mode="multiplayer").order_by("-result")[:5]
-    result_easy = Result.objects.filter(mode="easy").order_by("-result")[:5]
-    result_medium = Result.objects.filter(mode="medium").order_by("-result")[:5]
-    result_hard = Result.objects.filter(mode="hard").order_by("-result")[:5]
+    ranking_multiplayer = Player.objects.order_by("-result_multiplayer")[:5]
+    ranking_easy = Player.objects.order_by("-result_easy")[:5]
+    ranking_medium = Player.objects.order_by("-result_medium")[:5]
+    ranking_hard = Player.objects.order_by("-result_hard")[:5]
     context = {
-        "result_multiplayer": result_multiplayer,
-        "result_easy": result_easy,
-        "result_medium": result_medium,
-        "result_hard": result_hard,
+        "ranking_multiplayer": ranking_multiplayer,
+        "ranking_easy": ranking_easy,
+        "ranking_medium": ranking_medium,
+        "ranking_hard": ranking_hard,
     }
     return render(request, 'stat.html', context)
 
@@ -85,10 +86,35 @@ def statistics(request):
 def save_result(request, mode):
     if request.method == "POST" and request.is_ajax():
         form = ResultForm(request.POST)
+        print(form)
+        print(form.is_valid)
         if form.is_valid():
             instance = form.save()
             serialized_instance = serializers.serialize('json', [instance, ])
-            return JsonResponse({"instance": serialized_instance}, status=200)
 
+            player1 = Player.objects.filter(username=request.POST.get("player1"))[0]
+            result1 = int(request.POST.get("result1"))
+
+            if mode == "multiplayer":
+                player2 = Player.objects.filter(username=request.POST.get("player2"))[0]
+                result2 = int(request.POST.get("result2"))
+
+                if result1 > player1.result_multiplayer:
+                    Player.objects.filter(username=request.POST.get("player1")).update(result_multiplayer=result1)
+                if result2 > player2.result_multiplayer:
+                    Player.objects.filter(username=request.POST.get("player2")).update(result_multiplayer=result2)
+
+            else:
+                if mode == "easy":
+                    if result1 > player1.result_easy:
+                        Player.objects.filter(username=request.POST.get("player1")).update(result_easy=result1)
+                elif mode == "medium":
+                    if result1 > player1.result_medium:
+                        Player.objects.filter(username=request.POST.get("player1")).update(result_medium=result1)
+                elif mode == "hard":
+                    if result1 > player1.result_hard:
+                        Player.objects.filter(username=request.POST.get("player1")).update(result_hard=result1)
+
+            return JsonResponse({"instance": serialized_instance}, status=200)
         else:
             return JsonResponse({"error": ":(("}, status=400)

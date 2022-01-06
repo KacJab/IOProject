@@ -16,14 +16,14 @@
               </tr>
               </thead>
                 <tbody id="stat_table">
-                  {% for result in result_multiplayer %}
+                  {% for result in ranking_multiplayer %}
                       <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ result.player }}</td>
-                        <td>{{ result.result }}</td>
-                        <td>{{ result.result }}</td>
-                        <td>{{ result.result }}</td>
-                        <td>{{ result.result }}</td>
+                        <td>{{ result.username }}</td>
+                        <td style='background-color: red;'>{{ result.result_multiplayer }}</td>
+                        <td>{{ result.result_easy }}</td>
+                        <td>{{ result.result_medium }}</td>
+                        <td>{{ result.result_hard }}</td>
                       </tr>
                   {% endfor %}
                 </tbody>
@@ -46,50 +46,50 @@
 
             var t = "";
             if(mode === "multiplayer") {
-                {% for result in result_multiplayer %}
+                {% for result in ranking_multiplayer %}
                     t += "<tr>";
                     t += "<td>{{ forloop.counter }} </td>";
-                    t += "<td>{{ result.player }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.username }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_multiplayer }} </td>";
+                    t += "<td>{{ result.result_easy }} </td>";
+                    t += "<td>{{ result.result_medium }} </td>";
+                    t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
             }
             else if(mode === "easy") {
-                {% for result in result_easy %}
+                {% for result in ranking_easy %}
                     t += "<tr>";
                     t += "<td>{{ forloop.counter }} </td>";
-                    t += "<td>{{ result.player }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.username }} </td>";
+                    t += "<td>{{ result.result_multiplayer }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_easy }} </td>";
+                    t += "<td>{{ result.result_medium }} </td>";
+                    t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
             }
             else if(mode === "medium") {
-                {% for result in result_medium %}
+                {% for result in ranking_medium %}
                     t += "<tr>";
                     t += "<td>{{ forloop.counter }} </td>";
-                    t += "<td>{{ result.player }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.username }} </td>";
+                    t += "<td>{{ result.result_multiplayer }} </td>";
+                    t += "<td>{{ result.result_easy }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_medium }} </td>";
+                    t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
             }
             else if(mode === "hard") {
-                {% for result in result_hard %}
+                {% for result in ranking_hard %}
                     t += "<tr>";
                     t += "<td>{{ forloop.counter }} </td>";
-                    t += "<td>{{ result.player }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
-                    t += "<td>{{ result.result }} </td>";
+                    t += "<td>{{ result.username }} </td>";
+                    t += "<td>{{ result.result_multiplayer }} </td>";
+                    t += "<td>{{ result.result_easy }} </td>";
+                    t += "<td>{{ result.result_medium }} </td>";
+                    t += "<td style='background-color: red;'>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
             }

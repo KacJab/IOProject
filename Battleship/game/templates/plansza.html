@@ -149,7 +149,7 @@
         }
 
 
-        function easy_mode(transcript, enemy_board) {
+        function easy_mode(transcript, enemy_board, controlSum2) {
             let r = Math.floor(Math.random() * 10) + 1;
             let c = Math.floor(Math.random() * 10) + 1;
             let target = document.getElementById("player_1_own_board," + r + "," + c);
@@ -173,6 +173,7 @@
                 transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "x");
                 document.getElementById(target.id).style.backgroundColor = "red";
                 document.getElementById(target.id).className = "checkedfield";
+                controlSum2++;
                 let control = 0;
                 for (let i = 0; i < 10; i++) {
                     for (let j = 0; j < 10; j++) {
@@ -187,75 +188,59 @@
                 } else {
                     alert("Przeciwnik trafia!");
                 }
-                let controlsum;
-                for (let i = 0; i < 10; i++) {
-                    for (let j = 0; j < 10; j++) {
-                        if (enemy_board[i][j] != 0) {
-                            controlsum++;
-                        }
-                    }
-                }
-                if (controlsum ==0){
-                    alert("Zwycięża komputer!");
-                }
-                easy_mode(transcript, enemy_board);
-            }
 
+
+                controlSum2 = easy_mode(transcript, enemy_board, controlSum2);
+            }
+            return controlSum2;
         }
 
-        function medium_mode(transcript, enemy_board, last_shot_on_target) {
-            let r = Math.floor(Math.random() * 10) + 1;
-            let c = Math.floor(Math.random() * 10) + 1;
-            let target = document.getElementById("player_1_own_board," + r + "," + c);
-            console.log(target.id + " , " + target.className);
-
-            while (target.className == "checkedfield") {
-                r = Math.floor(Math.random() * 10) + 1;
-                c = Math.floor(Math.random() * 10) + 1;
-                target = document.getElementById("player_1_own_board," + r + "," + c);
-                console.log(target.id + " , " + target.className);
-            }
-
-            if (enemy_board[r - 1][c - 1] == 0) {
-                transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
-                alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
-                document.getElementById(target.id).style.backgroundColor = "blue";
-                document.getElementById(target.id).className = "checkedfield";
-
-
-            } else {
-                transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "x");
-                document.getElementById(target.id).style.backgroundColor = "red";
-                document.getElementById(target.id).className = "checkedfield";
-                let control = 0;
-                for (let i = 0; i < 10; i++) {
-                    for (let j = 0; j < 10; j++) {
-                        if (enemy_board[i][j] == enemy_board[r - 1][c - 1]) {
-                            control++;
-                        }
-                    }
-                }
-                enemy_board[r - 1][c - 1] = 0;
-                if (control == 1) {
-                    alert("Przeciwnik trafia, i zatapia twój okręt!!!!");
-                } else {
-                    alert("Przeciwnik trafia!");
-                }
-                let controlsum;
-                for (let i = 0; i < 10; i++) {
-                    for (let j = 0; j < 10; j++) {
-                        if (enemy_board[i][j] != 0) {
-                            controlsum++;
-                        }
-                    }
-                }
-                if (controlsum ==0){
-                    alert("Zwycięża komputer!");
-                }
-                easy_mode(transcript, enemy_board);
-            }
-
-        }
+        {#function medium_mode(transcript, enemy_board, last_shot_on_target) {#}
+        {#    let r = Math.floor(Math.random() * 10) + 1;#}
+        {#    let c = Math.floor(Math.random() * 10) + 1;#}
+        {#    let target = document.getElementById("player_1_own_board," + r + "," + c);#}
+        {#    console.log(target.id + " , " + target.className);#}
+        {##}
+        {#    while (target.className == "checkedfield") {#}
+        {#        r = Math.floor(Math.random() * 10) + 1;#}
+        {#        c = Math.floor(Math.random() * 10) + 1;#}
+        {#        target = document.getElementById("player_1_own_board," + r + "," + c);#}
+        {#        console.log(target.id + " , " + target.className);#}
+        {#    }#}
+        {##}
+        {#    if (enemy_board[r - 1][c - 1] == 0) {#}
+        {#        transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");#}
+        {#        alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");#}
+        {#        document.getElementById(target.id).style.backgroundColor = "blue";#}
+        {#        document.getElementById(target.id).className = "checkedfield";#}
+        {##}
+        {##}
+        {#    } else {#}
+        {#        transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "x");#}
+        {#        document.getElementById(target.id).style.backgroundColor = "red";#}
+        {#        document.getElementById(target.id).className = "checkedfield";#}
+        {#        let control = 0;#}
+        {#        for (let i = 0; i < 10; i++) {#}
+        {#            for (let j = 0; j < 10; j++) {#}
+        {#                if (enemy_board[i][j] == enemy_board[r - 1][c - 1]) {#}
+        {#                    control++;#}
+        {#                }#}
+        {#            }#}
+        {#        }#}
+        {#        enemy_board[r - 1][c - 1] = 0;#}
+        {#        if (control == 1) {#}
+        {#            alert("Przeciwnik trafia, i zatapia twój okręt!!!!");#}
+        {#        } else {#}
+        {#            alert("Przeciwnik trafia!");#}
+        {#        }#}
+        {##}
+        {#        if (controlsum == 0) {#}
+        {#            alert("Zwycięża komputer!");#}
+        {#        }#}
+        {#        easy_mode(transcript, enemy_board);#}
+        {#    }#}
+        {##}
+        {##}
 
         $(document).ready(function () {
 
@@ -265,7 +250,7 @@
                 let fleet = [];
                 let player1_game_transcript = [];
                 let player2_game_transcript = [];
-                let difficulty_level = 0;
+                let game_on = true;
 
                 let controlSum = 0;
                 let controlSum2 = 0;
@@ -295,8 +280,8 @@
                 console.log("board 1:");
                 console.log(board);
 
-            console.log("board 2:");
-            console.log(board2);
+                console.log("board 2:");
+                console.log(board2);
 
                 console.log(fleet);
                 createBoard(board, document.getElementById("player_1_own_board"), document.getElementById("player_1_enemy_board"));
@@ -335,7 +320,7 @@
 
                     console.log(player1_game_transcript);
                     console.log(player2_game_transcript);
-
+                    if(game_on){
                     if (this.className === "enemys-field") {
                         this.className = "checkedfield";
                         if (currentPlayer == 1) {
@@ -354,12 +339,18 @@
                                 currentPlayer = 2;
                                 alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 2. gracza");
                                 {%  if mode == "easy" %}
-                                    easy_mode(player2_game_transcript, board);
+                                    controlSum2 = easy_mode(player2_game_transcript, board, controlSum2);
+
+                                    console.log("komputer trafił już" + controlSum2 + " razy");
+                                    if (controlSum2 == 20) {
+                                        alert("Zwycięża komputer!");
+                                        game_on = false;
+                                    }
                                     currentPlayer = 1;
                                 {% elif mode == "medium" %}
                                     medium_mode(player2_game_transcript, board)
                                 {% elif mode == "hard" %}
-                                    console.log("trudno");
+                                    hard_mode(player2_game_transcript, board);
                                 {% endif %}
                             } else if (board2[r - 1][c - 1] != 0) {
                                 document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "red";
@@ -385,48 +376,46 @@
                             }
                             if (controlSum == 20) {
                                 alert("koniec gry wygrał gracz 1.");
+                                game_on = false;
                             }
                         } {% if mode == "multiplayer" %} else if (currentPlayer == 2) {
                             player2count++;
-                            if (difficulty_level == 0) {
 
-                                if (board[r - 1][c - 1] === 0) {
+                            if (board[r - 1][c - 1] === 0) {
 
-                                    document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "blue";
-                                    this.style.backgroundColor = "blue";
-                                    player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "o");
+                                document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "blue";
+                                this.style.backgroundColor = "blue";
+                                player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "o");
 
-                                    $("#player_2_enemy_board").hide();
-                                    $("#player_2_own_board").hide();
-                                    $("#player_1_enemy_board").show();
-                                    $("#player_1_own_board").show();
-                                    currentPlayer = 1;
-                                    alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
+                                $("#player_2_enemy_board").hide();
+                                $("#player_2_own_board").hide();
+                                $("#player_1_enemy_board").show();
+                                $("#player_1_own_board").show();
+                                currentPlayer = 1;
+                                alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
 
-                                } else if (board[r - 1][c - 1] != 0) {
-                                    document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "red";
-                                    this.style.backgroundColor = "red";
-                                    controlSum2++;
-                                    player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "x");
+                            } else if (board[r - 1][c - 1] != 0) {
+                                document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "red";
+                                this.style.backgroundColor = "red";
+                                controlSum2++;
+                                player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "x");
 
-                                    console.log(board[r - 1][c - 1]);
-                                    let control = 0;
-                                    for (let i = 0; i < 10; i++) {
-                                        for (let j = 0; j < 10; j++) {
-                                            if (board[i][j] == board[r - 1][c - 1]) {
-                                                control++;
-                                            }
+                                console.log(board[r - 1][c - 1]);
+                                let control = 0;
+                                for (let i = 0; i < 10; i++) {
+                                    for (let j = 0; j < 10; j++) {
+                                        if (board[i][j] == board[r - 1][c - 1]) {
+                                            control++;
                                         }
                                     }
-                                    board[r - 1][c - 1] = 0;
-                                    if (control == 1) {
-                                        alert("trafiony, zatopiony!" + parseInt(control));
-                                    } else {
-                                        alert("trafiony!" + parseInt(control));
-                                    }
                                 }
-                            } else if (difficulty_level == 1) {
-                                easy_mode(currentPlayer, player2_game_transcript, board);
+                                board[r - 1][c - 1] = 0;
+                                if (control == 1) {
+                                    alert("trafiony, zatopiony!" + parseInt(control));
+                                } else {
+                                    alert("trafiony!" + parseInt(control));
+                                }
+
                             }
                             if (controlSum2 == 20) {
                                 alert("koniec gry, wygrał gracz 2.");
@@ -438,6 +427,8 @@
                         }{% endif %}
                     } else {
                         alert("już tam strzelałeś!")
+                    }}else{
+                        alert("Gra dobiegła końca!")
                     }
                 });
             }

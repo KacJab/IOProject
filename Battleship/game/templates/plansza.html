@@ -196,13 +196,16 @@
         }
 
         function medium_mode(transcript, enemy_board, controlSum2) {
+            if (controlSum2 == 20){
+                return controlSum2;
+            }
             let last_shot_on_target = [];
             let r, c, target;
+            {#transcript_reversed = transcript.reverse();#}
             for (const element of transcript) {
                 transcript_split = element.split(',');
                 if (transcript_split[2] == "x") {
                     last_shot_on_target = [transcript_split[0].charCodeAt(0) - 64, parseInt(transcript_split[1])];
-                    break;
                 }
             }
             {#console.log(transcript_split[0].charCodeAt(0)+","+transcript_split[1]+","+transcript_split[2]);#}
@@ -220,40 +223,48 @@
                     console.log(target.id + " , " + target.className);
                 }
             } else {
-                r = last_shot_on_target[0] - 1;
-                c = last_shot_on_target[1];
-                target = document.getElementById("player_1_own_board," + r + "," + c);
-                console.log(target.id + " , " + target.className);
-                if (target.className == "checkedfield") {
-                    r = last_shot_on_target[0];
-                    c = last_shot_on_target[1] + 1;
-                    target = document.getElementById("player_1_own_board," + r + "," + c);
-                    console.log(target.id + " , " + target.className);
-                }
-                if (target.className == "checkedfield") {
-                    r = last_shot_on_target[0] + 1;
+                if (last_shot_on_target[0] > 1) {
+                    r = last_shot_on_target[0] - 1;
                     c = last_shot_on_target[1];
                     target = document.getElementById("player_1_own_board," + r + "," + c);
                     console.log(target.id + " , " + target.className);
                 }
-                if (target.className == "checkedfield") {
-                    r = last_shot_on_target[0];
-                    c = last_shot_on_target[1] - 1;
-                    target = document.getElementById("player_1_own_board," + r + "," + c);
-                    console.log(target.id + " , " + target.className);
-                    last_shot_on_target = [];
-                }
-                if (target.className == "checkedfield") {
-                    r = Math.floor(Math.random() * 10) + 1;
-                    c = Math.floor(Math.random() * 10) + 1;
-                    target = document.getElementById("player_1_own_board," + r + "," + c);
-                    console.log(target.id + " , " + target.className);
-
-                    while (target.className == "checkedfield") {
-                        r = Math.floor(Math.random() * 10) + 1;
-                        c = Math.floor(Math.random() * 10) + 1;
+                if (target.className == "checkedfield" || last_shot_on_target == 1) {
+                    if (last_shot_on_target[1] < 10) {
+                        r = last_shot_on_target[0];
+                        c = last_shot_on_target[1] + 1;
                         target = document.getElementById("player_1_own_board," + r + "," + c);
                         console.log(target.id + " , " + target.className);
+                    }
+                    if (target.className == "checkedfield") {
+                        if (last_shot_on_target[0] < 10) {
+                            r = last_shot_on_target[0] + 1;
+                            c = last_shot_on_target[1];
+                            target = document.getElementById("player_1_own_board," + r + "," + c);
+                            console.log(target.id + " , " + target.className);
+                        }
+                        if (target.className == "checkedfield") {
+                            if (last_shot_on_target[1] > 1) {
+                                r = last_shot_on_target[0];
+                                c = last_shot_on_target[1] - 1;
+                                target = document.getElementById("player_1_own_board," + r + "," + c);
+                                console.log(target.id + " , " + target.className);
+                                last_shot_on_target = [];
+                            }
+                            if (target.className == "checkedfield") {
+                                r = Math.floor(Math.random() * 10) + 1;
+                                c = Math.floor(Math.random() * 10) + 1;
+                                target = document.getElementById("player_1_own_board," + r + "," + c);
+                                console.log(target.id + " , " + target.className);
+
+                                while (target.className == "checkedfield") {
+                                    r = Math.floor(Math.random() * 10) + 1;
+                                    c = Math.floor(Math.random() * 10) + 1;
+                                    target = document.getElementById("player_1_own_board," + r + "," + c);
+                                    console.log(target.id + " , " + target.className);
+                                }
+                            }
+                        }
                     }
                 }
 

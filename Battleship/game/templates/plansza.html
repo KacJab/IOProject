@@ -42,7 +42,6 @@
 
         function randomly_locate_ships(boardToEdit, fleet, board_to_control_neighborhood) {
             let orient, place_start, place_on_axis2;
-            console.log(board_to_control_neighborhood);
             let all_clear = true;
             let not_complete = true;
 
@@ -73,30 +72,56 @@
                                 board_to_control_neighborhood[place_start + s][place_on_axis2] = 1;
                                 if (place_on_axis2 > 0) {
                                     board_to_control_neighborhood[place_start + s][place_on_axis2 - 1] = 1;
+                                    if (place_start + s > 0) {
+                                        board_to_control_neighborhood[place_start + s - 1][place_on_axis2 - 1] = 1;
+                                    }
                                 }
                                 if (place_on_axis2 < 9) {
                                     board_to_control_neighborhood[place_start + s][place_on_axis2 + 1] = 1;
+                                    if (place_start + s > 0) {
+                                        board_to_control_neighborhood[place_start + s - 1][place_on_axis2 + 1] = 1;
+                                    }
                                 }
                                 if (place_start + s > 0) {
                                     board_to_control_neighborhood[place_start + s - 1][place_on_axis2] = 1;
+
                                 }
                                 if (place_start + s < 9) {
                                     board_to_control_neighborhood[place_start + s + 1][place_on_axis2] = 1;
+                                    if (place_on_axis2 < 9) {
+                                        board_to_control_neighborhood[place_start + s + 1][place_on_axis2 + 1] = 1;
+                                    }
+                                    if (place_on_axis2 > 0) {
+                                        board_to_control_neighborhood[place_start + s + 1][place_on_axis2 - 1] = 1;
+
+                                    }
                                 }
                             } else {
                                 boardToEdit[place_on_axis2][place_start + s] = i + 1;
                                 board_to_control_neighborhood[place_on_axis2][place_start + s] = 1;
                                 if (place_on_axis2 > 0) {
                                     board_to_control_neighborhood[place_on_axis2 - 1][place_start + s] = 1;
+                                    if (place_start + s > 0) {
+                                        board_to_control_neighborhood[place_on_axis2 - 1][place_start + s - 1] = 1;
+                                    }
                                 }
                                 if (place_on_axis2 < 9) {
                                     board_to_control_neighborhood[place_on_axis2 + 1][place_start + s] = 1;
+                                    if (place_start + s > 0) {
+                                        board_to_control_neighborhood[place_on_axis2 + 1][place_start + s - 1] = 1;
+                                    }
                                 }
                                 if (place_start + s > 0) {
                                     board_to_control_neighborhood[place_on_axis2][place_start + s - 1] = 1;
                                 }
                                 if (place_start + s < 9) {
                                     board_to_control_neighborhood[place_on_axis2][place_start + s + 1] = 1;
+                                    if (place_on_axis2 < 9) {
+                                        board_to_control_neighborhood[place_on_axis2 + 1][place_start + s + 1] = 1;
+                                    }
+                                    if (place_on_axis2 > 0) {
+                                        board_to_control_neighborhood[place_on_axis2 - 1][place_start + s + 1] = 1;
+                                    }
                                 }
                             }
                         }
@@ -218,6 +243,7 @@
                 enemy_board[r - 1][c - 1] = 0;
                 if (control == 1) {
                     alert("Przeciwnik trafia, i zatapia twój okręt!!!!");
+
                 } else {
                     alert("Przeciwnik trafia!");
                 }
@@ -520,8 +546,7 @@
                 }
 
 
-                $(".enemys-field").click(function () {      //multiplayer
-
+                $(".enemys-field").click(function () {
                     let rowcol = this.id.split(',');
                     let r = parseInt(rowcol[0]);
                     let c = parseInt(rowcol[1]);

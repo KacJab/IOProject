@@ -40,41 +40,71 @@
     <script>
 
 
-        function randomly_locate_ships(boardToEdit, fleet) {
-            let sum = 0;
-            while (sum < 20) {
-                sum = 0;
+        function randomly_locate_ships(boardToEdit, fleet, board_to_control_neighborhood) {
+            let orient, place_start, place_on_axis2;
+            console.log(board_to_control_neighborhood);
+            let all_clear = true;
+            let not_complete = true;
 
-                for (let i = 0; i < fleet.length; i++) {
+            for (let i = 0; i < fleet.length; i++) {
+                not_complete = true;
+                while (not_complete) {
+                    all_clear = true;
                     orient = Math.round(Math.random());
                     place_start = Math.floor(Math.random() * (10 - fleet[i]));
                     place_on_axis2 = Math.floor(Math.random() * 10);
-
                     for (let s = 1; s <= fleet[i]; s++) {
                         if (orient === 1) {
-                            boardToEdit[place_start + s][place_on_axis2] = i + 1;
+                            if (board_to_control_neighborhood[place_start + s][place_on_axis2] != 0) {
+                                all_clear = false;
+                                break;
+                            }
                         } else {
-                            boardToEdit[place_on_axis2][place_start + s] = i + 1;
+                            if (board_to_control_neighborhood[place_on_axis2][place_start + s] != 0) {
+                                all_clear = false;
+                                break;
+                            }
                         }
                     }
-                }
-                for (let i = 0; i < 10; i++) {
-                    for (let j = 0; j < 10; j++) {
-                        if (boardToEdit[i][j] !== 0) {
-                            sum++;
+                    if (all_clear) {
+                        for (let s = 1; s <= fleet[i]; s++) {
+                            if (orient === 1) {
+                                boardToEdit[place_start + s][place_on_axis2] = i + 1;
+                                board_to_control_neighborhood[place_start + s][place_on_axis2] = 1;
+                                if (place_on_axis2 > 0) {
+                                    board_to_control_neighborhood[place_start + s][place_on_axis2 - 1] = 1;
+                                }
+                                if (place_on_axis2 < 9) {
+                                    board_to_control_neighborhood[place_start + s][place_on_axis2 + 1] = 1;
+                                }
+                                if (place_start + s > 0) {
+                                    board_to_control_neighborhood[place_start + s - 1][place_on_axis2] = 1;
+                                }
+                                if (place_start + s < 9) {
+                                    board_to_control_neighborhood[place_start + s + 1][place_on_axis2] = 1;
+                                }
+                            } else {
+                                boardToEdit[place_on_axis2][place_start + s] = i + 1;
+                                board_to_control_neighborhood[place_on_axis2][place_start + s] = 1;
+                                if (place_on_axis2 > 0) {
+                                    board_to_control_neighborhood[place_on_axis2 - 1][place_start + s] = 1;
+                                }
+                                if (place_on_axis2 < 9) {
+                                    board_to_control_neighborhood[place_on_axis2 + 1][place_start + s] = 1;
+                                }
+                                if (place_start + s > 0) {
+                                    board_to_control_neighborhood[place_on_axis2][place_start + s - 1] = 1;
+                                }
+                                if (place_start + s < 9) {
+                                    board_to_control_neighborhood[place_on_axis2][place_start + s + 1] = 1;
+                                }
+                            }
                         }
+                        not_complete = false;
                     }
                 }
-                sum = summingValuesIn2dArray(boardToEdit);
-                if (sum < 20) {
-                    for (let i = 0; i < 10; i++) {
 
-                        for (let j = 0; j < 10; j++) {
-                            boardToEdit[i][j] = 0;
-                        }
-                    }
-                }
-                console.log(sum);
+
             }
         }
 
@@ -150,6 +180,9 @@
 
 
         function easy_mode(transcript, enemy_board, controlSum2) {
+            if (controlSum2 == 20) {
+                return controlSum2;
+            }
             let r = Math.floor(Math.random() * 10) + 1;
             let c = Math.floor(Math.random() * 10) + 1;
             let target = document.getElementById("player_1_own_board," + r + "," + c);
@@ -196,7 +229,7 @@
         }
 
         function medium_mode(transcript, enemy_board, controlSum2) {
-            if (controlSum2 == 20){
+            if (controlSum2 == 20) {
                 return controlSum2;
             }
             let last_shot_on_target = [];
@@ -304,15 +337,125 @@
 
         }
 
+        function hard_mode(transcript, enemy_board, controlSum2) {
+            if (controlSum2 == 20) {
+                return controlSum2;
+            }
+            let last_shot_on_target = [];
+            let r, c, target;
+            {#transcript_reversed = transcript.reverse();#}
+            for (const element of transcript) {
+                transcript_split = element.split(',');
+                if (transcript_split[2] == "x") {
+                    last_shot_on_target = [transcript_split[0].charCodeAt(0) - 64, parseInt(transcript_split[1])];
+                }
+            }
+            {#console.log(transcript_split[0].charCodeAt(0)+","+transcript_split[1]+","+transcript_split[2]);#}
+            console.log(last_shot_on_target);
+            if (last_shot_on_target.length == 0) {
+                r = Math.floor(Math.random() * 10) + 1;
+                c = Math.floor(Math.random() * 10) + 1;
+                target = document.getElementById("player_1_own_board," + r + "," + c);
+                console.log(target.id + " , " + target.className);
+
+                while (target.className == "checkedfield") {
+                    r = Math.floor(Math.random() * 10) + 1;
+                    c = Math.floor(Math.random() * 10) + 1;
+                    target = document.getElementById("player_1_own_board," + r + "," + c);
+                    console.log(target.id + " , " + target.className);
+                }
+            } else {
+                if (last_shot_on_target[0] > 1) {
+                    r = last_shot_on_target[0] - 1;
+                    c = last_shot_on_target[1];
+                    target = document.getElementById("player_1_own_board," + r + "," + c);
+                    console.log(target.id + " , " + target.className);
+                }
+                if (target.className == "checkedfield" || last_shot_on_target == 1) {
+                    if (last_shot_on_target[1] < 10) {
+                        r = last_shot_on_target[0];
+                        c = last_shot_on_target[1] + 1;
+                        target = document.getElementById("player_1_own_board," + r + "," + c);
+                        console.log(target.id + " , " + target.className);
+                    }
+                    if (target.className == "checkedfield") {
+                        if (last_shot_on_target[0] < 10) {
+                            r = last_shot_on_target[0] + 1;
+                            c = last_shot_on_target[1];
+                            target = document.getElementById("player_1_own_board," + r + "," + c);
+                            console.log(target.id + " , " + target.className);
+                        }
+                        if (target.className == "checkedfield") {
+                            if (last_shot_on_target[1] > 1) {
+                                r = last_shot_on_target[0];
+                                c = last_shot_on_target[1] - 1;
+                                target = document.getElementById("player_1_own_board," + r + "," + c);
+                                console.log(target.id + " , " + target.className);
+                                last_shot_on_target = [];
+                            }
+                            if (target.className == "checkedfield") {
+                                r = Math.floor(Math.random() * 10) + 1;
+                                c = Math.floor(Math.random() * 10) + 1;
+                                target = document.getElementById("player_1_own_board," + r + "," + c);
+                                console.log(target.id + " , " + target.className);
+
+                                while (target.className == "checkedfield") {
+                                    r = Math.floor(Math.random() * 10) + 1;
+                                    c = Math.floor(Math.random() * 10) + 1;
+                                    target = document.getElementById("player_1_own_board," + r + "," + c);
+                                    console.log(target.id + " , " + target.className);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            if (enemy_board[r - 1][c - 1] == 0) {
+                transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
+                alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
+                document.getElementById(target.id).style.backgroundColor = "blue";
+                document.getElementById(target.id).className = "checkedfield";
+
+
+            } else {
+                transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "x");
+                document.getElementById(target.id).style.backgroundColor = "red";
+                document.getElementById(target.id).className = "checkedfield";
+                controlSum2++;
+                let control = 0;
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 0; j < 10; j++) {
+                        if (enemy_board[i][j] == enemy_board[r - 1][c - 1]) {
+                            control++;
+                        }
+                    }
+                }
+                enemy_board[r - 1][c - 1] = 0;
+                if (control == 1) {
+                    alert("Przeciwnik trafia, i zatapia twój okręt!!!!");
+                } else {
+                    alert("Przeciwnik trafia!");
+                }
+
+
+                controlSum2 = hard_mode(transcript, enemy_board, controlSum2);
+            }
+            return controlSum2;
+
+        }
 
         $(document).ready(function () {
 
                 let empty_board = [];
+                let empty_board2 = [];
                 let board = [];
                 let board2 = [];
                 let fleet = [];
                 let player1_game_transcript = [];
                 let player2_game_transcript = [];
+                let whole_game_transcript = [];
                 let game_on = true;
 
                 let controlSum = 0;
@@ -323,10 +466,12 @@
                 let currentPlayer = 1;
                 for (let i = 0; i < 10; i++) {
                     empty_board[i] = [];
+                    empty_board2[i] = [];
                     board[i] = [];
                     board2[i] = [];
                     for (let j = 0; j < 10; j++) {
                         empty_board[i][j] = 0;
+                        empty_board2[i][j] = 0;
                         board[i][j] = 0;
                         board2[i][j] = 0;
                     }
@@ -337,8 +482,8 @@
                         fleet.push(i + 1)
                     }
                 }
-                randomly_locate_ships(board, fleet);
-                randomly_locate_ships(board2, fleet);
+                randomly_locate_ships(board, fleet, empty_board);
+                randomly_locate_ships(board2, fleet, empty_board2);
 
                 console.log("board 1:");
                 console.log(board);
@@ -419,7 +564,13 @@
                                         }
                                         currentPlayer = 1;
                                     {% elif mode == "hard" %}
-                                        hard_mode(player2_game_transcript, board);
+                                        controlSum2 = hard_mode(player2_game_transcript, board, controlSum2);
+                                        console.log("komputer trafił już" + controlSum2 + " razy");
+                                        if (controlSum2 == 20) {
+                                            alert("Zwycięża komputer!");
+                                            game_on = false;
+                                        }
+                                        currentPlayer = 1;
                                     {% endif %}
                                 } else if (board2[r - 1][c - 1] != 0) {
                                     document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "red";

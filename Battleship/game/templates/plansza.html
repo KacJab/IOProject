@@ -147,7 +147,6 @@
 
         function createBoard(boardToDisplay, container1, container2) {
 
-
             let tbl = container1;
             let tbl2 = container2;
 
@@ -568,7 +567,6 @@
                 let player1_game_transcript = [];
                 let player2_game_transcript = [];
                 let potential_targets = [];
-                let whole_game_transcript = [];
                 let game_on = true;
                 let sunken_ships_locations = [];
                 let line_of_shooting = [];
@@ -596,7 +594,7 @@
 
                 for (let i = 0; i < 4; i++) {
                     for (let j = 0; j < 4 - i; j++) {
-                        fleet.push(i + 1)
+                        fleet.push(i + 1);
                     }
                 }
                 randomly_locate_ships(board, fleet.reverse(), empty_board);
@@ -606,12 +604,6 @@
                         starting_board_of_p1[i][j] = board[i][j];
                     }
                 }
-                {#console.log("board 1:");#}
-                {#console.log(board);#}
-                {##}
-                {#console.log("board 2:");#}
-                {#console.log(board2);#}
-
 
                 createBoard(board, document.getElementById("player_1_own_board"), document.getElementById("player_1_enemy_board"));
                 createBoard(board2, document.getElementById("player_2_own_board"), document.getElementById("player_2_enemy_board"));

@@ -364,7 +364,7 @@
         }
 
 
-        function hard_mode(transcript, enemy_board, controlSum2, sunken_ships_locations, enemy_starting_board, potential_targets, we_got_him) {
+        function hard_mode(transcript, enemy_board, controlSum2, sunken_ships_locations, enemy_starting_board, potential_targets, line_of_shooting) {
 
             if (controlSum2 == 20) {
                 return controlSum2;
@@ -402,35 +402,40 @@
 
                 }
             } else {
-                if (we_got_him == false) {
-                    if (last_shot_on_target[0] < 10 && potential_targets.includes([last_shot_on_target[0] + 1, last_shot_on_target[1]]) == false) {
-                        if (document.getElementById("player_1_own_board," + (last_shot_on_target[0] + 1) + "," + last_shot_on_target[1]).className != "checkedfield") {
-                            potential_targets.push([last_shot_on_target[0] + 1, last_shot_on_target[1]]);
-                        }
-                    }
-                    if (last_shot_on_target[0] > 1 && potential_targets.includes([last_shot_on_target[0] - 1, last_shot_on_target[1]]) == false) {
-                        if (document.getElementById("player_1_own_board," + (last_shot_on_target[0] - 1) + "," + last_shot_on_target[1]).className != "checkedfield") {
-                            potential_targets.push([last_shot_on_target[0] - 1, last_shot_on_target[1]]);
-                        }
-                    }
-                    if (last_shot_on_target[1] < 10 && potential_targets.includes([last_shot_on_target[0], last_shot_on_target[1] + 1]) == false) {
-                        if (document.getElementById("player_1_own_board," + last_shot_on_target[0] + "," + (last_shot_on_target[1] + 1)).className != "checkedfield") {
-                            potential_targets.push([last_shot_on_target[0], last_shot_on_target[1] + 1]);
-                        }
-                    }
-                    if (last_shot_on_target[1] > 1 && potential_targets.includes([last_shot_on_target[0], last_shot_on_target[1] - 1]) == false) {
-                        if (document.getElementById("player_1_own_board," + last_shot_on_target[0] + "," + (last_shot_on_target[1] - 1)).className != "checkedfield") {
-                            potential_targets.push([last_shot_on_target[0], last_shot_on_target[1] - 1]);
-                        }
-                    }
-
-                    for (let i = 0; i < potential_targets.length; i++) {
-                        if (document.getElementById("player_1_own_board," + potential_targets[i][0] + "," + potential_targets[i][1]).className == "checkedfield") {
-                            potential_targets.splice(i, 1);
-                            i--;
-                        }
+                if (last_shot_on_target[0] < 10 && potential_targets.includes([last_shot_on_target[0] + 1, last_shot_on_target[1]]) == false) {
+                    if (document.getElementById("player_1_own_board," + (last_shot_on_target[0] + 1) + "," + last_shot_on_target[1]).className != "checkedfield") {
+                        potential_targets.push([last_shot_on_target[0] + 1, last_shot_on_target[1]]);
                     }
                 }
+                if (last_shot_on_target[0] > 1 && potential_targets.includes([last_shot_on_target[0] - 1, last_shot_on_target[1]]) == false) {
+                    if (document.getElementById("player_1_own_board," + (last_shot_on_target[0] - 1) + "," + last_shot_on_target[1]).className != "checkedfield") {
+                        potential_targets.push([last_shot_on_target[0] - 1, last_shot_on_target[1]]);
+                    }
+                }
+                if (last_shot_on_target[1] < 10 && potential_targets.includes([last_shot_on_target[0], last_shot_on_target[1] + 1]) == false) {
+                    if (document.getElementById("player_1_own_board," + last_shot_on_target[0] + "," + (last_shot_on_target[1] + 1)).className != "checkedfield") {
+                        potential_targets.push([last_shot_on_target[0], last_shot_on_target[1] + 1]);
+                    }
+                }
+                if (last_shot_on_target[1] > 1 && potential_targets.includes([last_shot_on_target[0], last_shot_on_target[1] - 1]) == false) {
+                    if (document.getElementById("player_1_own_board," + last_shot_on_target[0] + "," + (last_shot_on_target[1] - 1)).className != "checkedfield") {
+                        potential_targets.push([last_shot_on_target[0], last_shot_on_target[1] - 1]);
+                    }
+                }
+
+                for (let i = 0; i < potential_targets.length; i++) {
+                    if (document.getElementById("player_1_own_board," + potential_targets[i][0] + "," + potential_targets[i][1]).className == "checkedfield") {
+                        potential_targets.splice(i, 1);
+                        i--;
+                    }
+                }
+                for (let i = 0; i < potential_targets.length; i++) {
+                    if (potential_targets[i][line_of_shooting[0]] != line_of_shooting[1]) {
+                        potential_targets.splice(i, 1);
+                        i--;
+                    }
+                }
+
                 rand = Math.floor(Math.random() * potential_targets.length);
                 r = potential_targets[rand][0];
                 c = potential_targets[rand][1];
@@ -444,8 +449,6 @@
                 }
             }
 
-            console.log("dalsze strzały to");
-            console.log(potential_targets);
 
             if (enemy_board[r - 1][c - 1] == 0) {
                 transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
@@ -460,7 +463,13 @@
                 document.getElementById(target_element.id).className = "checkedfield";
                 controlSum2++;
 
-                if (last_shot_on_target.length > 0) {
+                if (last_shot_on_target != []) {
+                    if (last_shot_on_target[0] == r) {
+                        line_of_shooting = [0, r];
+                    }
+                    if (last_shot_on_target[1] == c) {
+                        line_of_shooting = [1, c];
+                    }
                     for (let i = 0; i < potential_targets.length; i++) {
                         if (last_shot_on_target[0] == r) {
                             if (potential_targets[i][0] != r) {
@@ -469,14 +478,12 @@
                             }
                         }
                         if (last_shot_on_target[1] == c) {
-                            if (potential_targets[i][1] != c) {
+                            if (potential_targets[i][0] != c) {
                                 potential_targets.splice(i, 1);
                                 i--;
                             }
                         }
                     }
-                    we_got_him = true;
-
                 }
 
 
@@ -532,15 +539,20 @@
 
                     }
                     potential_targets = [];
-                    we_got_him = false;
+                    line_of_shooting = [];
                     alert("Przeciwnik trafia, i zatapia twój okręt!!!!");
                 } else {
                     alert("Przeciwnik trafia!");
+
                 }
                 enemy_board[r - 1][c - 1] = 0;
-                console.log("mamy go?" + we_got_him);
-                controlSum2 = hard_mode(transcript, enemy_board, controlSum2, sunken_ships_locations, enemy_starting_board, potential_targets, we_got_him);
+
+                controlSum2 = hard_mode(transcript, enemy_board, controlSum2, sunken_ships_locations, enemy_starting_board, potential_targets, line_of_shooting);
             }
+            console.log("linia strzału:");
+            console.log(line_of_shooting);
+            console.log("dalsze strzały to");
+            console.log(potential_targets);
             return controlSum2;
 
         }
@@ -559,7 +571,7 @@
                 let whole_game_transcript = [];
                 let game_on = true;
                 let sunken_ships_locations = [];
-                let we_got_him = false;
+                let line_of_shooting = [];
 
                 let controlSum = 0;
                 let controlSum2 = 0;
@@ -587,8 +599,8 @@
                         fleet.push(i + 1)
                     }
                 }
-                randomly_locate_ships(board, fleet, empty_board);
-                randomly_locate_ships(board2, fleet, empty_board2);
+                randomly_locate_ships(board, fleet.reverse(), empty_board);
+                randomly_locate_ships(board2, fleet.reverse(), empty_board2);
                 for (let i = 0; i < 10; i++) {
                     for (let j = 0; j < 10; j++) {
                         starting_board_of_p1[i][j] = board[i][j];
@@ -669,7 +681,7 @@
                                         }
                                         currentPlayer = 1;
                                     {% elif mode == "hard" %}
-                                        controlSum2 = hard_mode(player2_game_transcript, board, controlSum2, sunken_ships_locations, starting_board_of_p1, potential_targets, we_got_him);
+                                        controlSum2 = hard_mode(player2_game_transcript, board, controlSum2, sunken_ships_locations, starting_board_of_p1, potential_targets, line_of_shooting);
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
                                             game_on = false;

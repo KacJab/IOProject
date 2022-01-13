@@ -662,6 +662,16 @@
                                         controlSum2 = easy_mode(player2_game_transcript, board, controlSum2);
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
+                                            let result1 = 100*(controlSum/player1count);
+                                            let result2 = 100*(controlSum/player2count);
+                                            document.getElementById('mode').value="{{ mode }}";
+                                            document.getElementById('player1').value="{{ request.user }}";
+                                            document.getElementById('player2').value="AI";
+                                            document.getElementById('result1').value=result1;
+                                            document.getElementById('result2').value=result2;
+                                            document.getElementById('transcript1').value=player1_game_transcript;
+                                            document.getElementById('transcript2').value=player2_game_transcript;
+                                            $('#resultform').trigger('submit');
                                             game_on = false;
                                         }
                                         currentPlayer = 1;
@@ -669,6 +679,16 @@
                                         controlSum2 = medium_mode(player2_game_transcript, board, controlSum2)
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
+                                            let result1 = 100*(controlSum/player1count);
+                                            let result2 = 100*(controlSum/player2count);
+                                            document.getElementById('mode').value="{{ mode }}";
+                                            document.getElementById('player1').value="{{ request.user }}";
+                                            document.getElementById('player2').value="AI";
+                                            document.getElementById('result1').value=result1;
+                                            document.getElementById('result2').value=result2;
+                                            document.getElementById('transcript1').value=player1_game_transcript;
+                                            document.getElementById('transcript2').value=player2_game_transcript;
+                                            $('#resultform').trigger('submit');
                                             game_on = false;
                                         }
                                         currentPlayer = 1;
@@ -676,6 +696,16 @@
                                         controlSum2 = hard_mode(player2_game_transcript, board, controlSum2, sunken_ships_locations, starting_board_of_p1, potential_targets, line_of_shooting);
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
+                                            let result1 = 100*(controlSum/player1count);
+                                            let result2 = 100*(controlSum/player2count);
+                                            document.getElementById('mode').value="{{ mode }}";
+                                            document.getElementById('player1').value="{{ request.user }}";
+                                            document.getElementById('player2').value="AI";
+                                            document.getElementById('result1').value=result1;
+                                            document.getElementById('result2').value=result2;
+                                            document.getElementById('transcript1').value=player1_game_transcript;
+                                            document.getElementById('transcript2').value=player2_game_transcript;
+                                            $('#resultform').trigger('submit');
                                             game_on = false;
                                         }
                                         currentPlayer = 1;
@@ -704,6 +734,14 @@
                                 }
                                 if (controlSum == 20) {
                                     alert("koniec gry wygrał gracz 1.");
+                                    ocument.getElementById('mode').value="{{ mode }}";
+                                    document.getElementById('player1').value="{{ request.user }}";
+                                    document.getElementById('player2').value="player2";
+                                    document.getElementById('result1').value=result1;
+                                    document.getElementById('result2').value=result2;
+                                    document.getElementById('transcript1').value=player1_game_transcript;
+                                    document.getElementById('transcript2').value=player2_game_transcript;
+                                    $('#resultform').trigger('submit');
                                     game_on = false;
                                 }
                             } {% if mode == "multiplayer" %} else if (currentPlayer == 2) {
@@ -747,10 +785,16 @@
                                 }
                                 if (controlSum2 == 20) {
                                     alert("koniec gry, wygrał gracz 2.");
-                                    let result_player1 = 100 * (controlSum / player1count);
-                                    document.getElementById('player').value = "{{ request.user }}";
-                                    document.getElementById('mode').value = "{{ mode }}";
-                                    document.getElementById('result').value = result_player1;
+                                    let result1 = 100*(controlSum/player1count);
+                                    let result2 = 100*(controlSum/player2count);
+                                    document.getElementById('mode').value="{{ mode }}";
+                                    document.getElementById('player1').value="{{ request.user }}";
+                                    document.getElementById('player2').value="player2";
+                                    document.getElementById('result1').value=result1;
+                                    document.getElementById('result2').value=result2;
+                                    document.getElementById('transcript1').value=player1_game_transcript;
+                                    document.getElementById('transcript2').value=player2_game_transcript;
+                                    $('#resultform').trigger('submit');
                                 }
                             }{% endif %}
                         } else {

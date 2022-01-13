@@ -1,81 +1,101 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
-    {% transcript %}
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-        <div class="d-flex justify-content-center">
-            <div class="grid-container">
-                <div class="col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="player_1_own_board">
-                    </table>
-                </div>
 
-                <div class=" col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="player_1_enemy_board">
-                    </table>
-                </div>
+    <header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center">
+        <h1 style="padding-bottom:3rem"class="mx-auto my-0 text-uppercase">{% translate "Panel Gracza" %}</h1>
+        <div/>
+        <div class="container">
+            <div class="row" style="background-color: lightgreen">
+                <h1 style="color: white">{{ result.transcript1 }}</h1>
+                <h1 style="color: black">{{ result.transcript2 }}</h1>
             </div>
+          <div/>
         </div>
+      </div>
     </div>
-    <script>
-        function createBoard(boardToDisplay, container1, container2) {
 
-            let tbl = container1;
-            let tbl2 = container2;
+  </div>
+</header>
 
-            let tblBody = document.createElement("tbody");
-            let tblBody2 = document.createElement("tbody");
-
-            for (let j = 0; j < 11; j++) {
-                var row = document.createElement("tr");
-                var row2 = document.createElement("tr");
-
-                for (var i = 0; i < 11; i++) {
-
-                    var cell = document.createElement("td");
-                    var cell2 = document.createElement("td");
-
-                    var cellText = document.createTextNode("0");
-                    var cellText2 = document.createTextNode("0");
-
-
-                    if (j === 0 && i !== 0) {
-                        cellText = document.createTextNode(i);
-                        cellText2 = document.createTextNode(i);
-                    } else if (j === 0 && i === 0) {
-                        cellText = document.createTextNode("X");
-                        cellText2 = document.createTextNode("X");
-                    } else if (i === 0) {
-                        cellText = document.createTextNode(String.fromCharCode(64 + j));
-                        cellText2 = document.createTextNode(String.fromCharCode(64 + j));
-                    } else {
-                        cellText = document.createTextNode(boardToDisplay[j - 1][i - 1]);
-                        cell.className = "your-field"
-                        cell2.className = "enemys-field";
-                        cell.id = j + "," + i;
-                        cell2.id = j + "," + i;
-                    }
-
-                    cell.appendChild(cellText);
-                    cell2.appendChild(cellText2)
-                    row.appendChild(cell);
-                    row2.appendChild(cell2);
-                }
-
-                //row added to end of table body
-                tblBody.appendChild(row);
-                tblBody2.appendChild(row2);
-            }
-
-            // append the <tbody> inside the <table>
-            tbl.appendChild(tblBody);
-            tbl2.appendChild(tblBody2);
-
-            tbl.setAttribute("border", "2");
-            tbl2.setAttribute("border", "2");
-        }
-
-        $(document).ready(function () {
-
-        });
-    </script>
+{#    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">#}
+{#        <div class="d-flex justify-content-center">#}
+{#            <div class="grid-container">#}
+{#                <div class="col-6 grid-child">#}
+{#                    <table class="table table-bordered table-dark" id="player_1_own_board">#}
+{#                    </table>#}
+{#                </div>#}
+{##}
+{#                <div class=" col-6 grid-child">#}
+{#                    <table class="table table-bordered table-dark" id="player_1_enemy_board">#}
+{#                    </table>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <script>#}
+{#        function createBoard(boardToDisplay, container1, container2) {#}
+{##}
+{#            let tbl = container1;#}
+{#            let tbl2 = container2;#}
+{##}
+{#            let tblBody = document.createElement("tbody");#}
+{#            let tblBody2 = document.createElement("tbody");#}
+{##}
+{#            for (let j = 0; j < 11; j++) {#}
+{#                var row = document.createElement("tr");#}
+{#                var row2 = document.createElement("tr");#}
+{##}
+{#                for (var i = 0; i < 11; i++) {#}
+{##}
+{#                    var cell = document.createElement("td");#}
+{#                    var cell2 = document.createElement("td");#}
+{##}
+{#                    var cellText = document.createTextNode("0");#}
+{#                    var cellText2 = document.createTextNode("0");#}
+{##}
+{##}
+{#                    if (j === 0 && i !== 0) {#}
+{#                        cellText = document.createTextNode(i);#}
+{#                        cellText2 = document.createTextNode(i);#}
+{#                    } else if (j === 0 && i === 0) {#}
+{#                        cellText = document.createTextNode("X");#}
+{#                        cellText2 = document.createTextNode("X");#}
+{#                    } else if (i === 0) {#}
+{#                        cellText = document.createTextNode(String.fromCharCode(64 + j));#}
+{#                        cellText2 = document.createTextNode(String.fromCharCode(64 + j));#}
+{#                    } else {#}
+{#                        cellText = document.createTextNode(boardToDisplay[j - 1][i - 1]);#}
+{#                        cell.className = "your-field"#}
+{#                        cell2.className = "enemys-field";#}
+{#                        cell.id = j + "," + i;#}
+{#                        cell2.id = j + "," + i;#}
+{#                    }#}
+{##}
+{#                    cell.appendChild(cellText);#}
+{#                    cell2.appendChild(cellText2)#}
+{#                    row.appendChild(cell);#}
+{#                    row2.appendChild(cell2);#}
+{#                }#}
+{##}
+{#                //row added to end of table body#}
+{#                tblBody.appendChild(row);#}
+{#                tblBody2.appendChild(row2);#}
+{#            }#}
+{##}
+{#            // append the <tbody> inside the <table>#}
+{#            tbl.appendChild(tblBody);#}
+{#            tbl2.appendChild(tblBody2);#}
+{##}
+{#            tbl.setAttribute("border", "2");#}
+{#            tbl2.setAttribute("border", "2");#}
+{#        }#}
+{##}
+{#        $(document).ready(function () {#}
+{##}
+{#        });#}
+{#    </script>#}
 {% endblock %}

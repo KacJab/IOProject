@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center">
+        <h1 style="padding-bottom:3rem"class="mx-auto my-0 text-uppercase">{% translate "Panel Gracza" %}</h1>
+        <div/>
+        <div class="container">
+            <div class="row" style="background-color: blue">
+                <div class="col-md-4"><p style="color: white">TRYB</p></div>
+                <div class="col-md-2"><p style="color: white">GRACZ 1</p></div>
+                <div class="col-md-2"><p style="color: white">WYNIK GRACZA 1</p></div>
+                <div class="col-md-2"><p style="color: white">GRACZ 2</p></div>
+                <div class="col-md-2"><p style="color: white">WYNIK GRACZA 2</p></div>
+
+                {% for r in result %}
+                    <a href="{% url 'replay' result_id='1' %}"><div class="row" style="background-color: red; border-style: dashed;">
+                        <div class="col-md-4"><p style="color: white">{{ r.mode }}</p></div>
+                        <div class="col-md-2"><p style="color: white">{{ r.player1 }}</p></div>
+                        <div class="col-md-2"><p style="color: white">{{ r.result1 }}</p></div>
+                        <div class="col-md-2"><p style="color: white">{{ r.player2 }}</p></div>
+                        <div class="col-md-2"><p style="color: white">{{ r.result2 }}</p></div>
+                    </div></a>
+                {% endfor %}
+            </div>
+          <div/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+{% endblock content %}

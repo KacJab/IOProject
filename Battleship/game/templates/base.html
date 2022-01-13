@@ -36,6 +36,7 @@
                             <li class="nav-item" style="padding: 1rem"><img class="rounded mx-auto d-block" src="{%  static user.avatar %}" style="max-height: 50px; max-width=50px;"/></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'playerpanel' %}">{% translate "Panel Gracza" %}</a></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6"  href="{% url 'statistics' %}">{% translate "Statystyki" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'allgames' %}">{% translate "GRGR" %}</a></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'logout' %}">{% translate "Wyloguj się" %}</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6"  href="{% url 'login' %}">{% translate "Zaloguj się" %}</a></li>

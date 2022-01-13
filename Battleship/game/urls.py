@@ -13,7 +13,9 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
     path('statistics/', views.statistics, name='statistics'),
     path('playerpanel/', views.playerpanel, name='playerpanel'),
-    path('game/<mode>/saveresult/', views.save_result, name='saveresult')
+    path('game/<mode>/saveresult/', views.save_result, name='saveresult'),
+    path('allgames/', views.allgames, name='allgames'),
+    path('replay/<result_id>', views.replay, name='replay')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

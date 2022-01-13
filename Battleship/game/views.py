@@ -51,7 +51,7 @@ def gamemode(request):
     return render(request, 'trybgry.html')
 
 def playerpanel(request):
-    return render(request, 'PanelGracza.html')
+    return render(request, 'panelGracza.html')
 
 
 def registerPage(request):
@@ -108,6 +108,24 @@ def statistics(request):
         "ranking_hard": ranking_hard,
     }
     return render(request, 'stat.html', context)
+
+
+@login_required(login_url='login')
+def allgames(request):
+    result = Result.objects.all()
+    context = {
+        "result": result
+    }
+    return render(request, 'all_games.html', context)
+
+
+@login_required(login_url='login')
+def replay(request, result_id):
+    result = Result.objects.get(id=result_id)
+    context = {
+        "result": result
+    }
+    return render(request, 'replay.html', context)
 
 
 @login_required(login_url='login')

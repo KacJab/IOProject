@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
     path('statistics/', views.statistics, name='statistics'),
+    path('playerpanel/', views.playerpanel, name='playerpanel'),
     path('game/<mode>/saveresult/', views.save_result, name='saveresult')
 ]
 

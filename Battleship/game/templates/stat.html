@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
       <div class="text-center">
-        <h1 class="mx-auto my-0 text-uppercase">Statystyki</h1>
-            <table class="table table-hover table-dark">
+        <h1 class="mx-auto my-0 text-uppercase">{% translate "statystyki" %}</h1>
+            <table class="table table-dark">
               <thead>
               <tr>
                 <th>#</th>
-                <th>Username</th>
-                <th><a id="multiplayer" onclick="chooseMode(this.id)" class="selectedMode">vs gracz</a></th>
-                <th><a id="easy" onclick="chooseMode(this.id)">vs łatwy</a></th>
-                <th><a id="medium" onclick="chooseMode(this.id)">vs średni</a></th>
-                <th><a id="hard" onclick="chooseMode(this.id)">vs trudny</a></th>
+                <th>{% translate "Nazwa Użytkownika" %}</th>
+                <th><a id="multiplayer" onclick="chooseMode(this.id)" class="selectedMode">{% translate "vs gracz" %}</a></th>
+                <th><a id="easy" onclick="chooseMode(this.id)">{% translate "vs łatwy" %}</a></th>
+                <th><a id="medium" onclick="chooseMode(this.id)">{% translate "vs średni" %}</a></th>
+                <th><a id="hard" onclick="chooseMode(this.id)">{% translate "vs trudny" %}</a></th>
               </tr>
               </thead>
                 <tbody id="stat_table">
@@ -20,7 +21,7 @@
                       <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ result.username }}</td>
-                        <td style='background-color: red;'>{{ result.result_multiplayer }}</td>
+                        <td style='background-color: rgba(255, 255, 255, 0.3)'>{{ result.result_multiplayer }}</td>
                         <td>{{ result.result_easy }}</td>
                         <td>{{ result.result_medium }}</td>
                         <td>{{ result.result_hard }}</td>
@@ -34,7 +35,7 @@
 
     <style>
         .selectedMode{
-            background-color: red;
+            background-color: transparent;
         }
     </style>
 
@@ -50,7 +51,7 @@
                     t += "<tr>";
                     t += "<td>{{ forloop.counter }} </td>";
                     t += "<td>{{ result.username }} </td>";
-                    t += "<td style='background-color: red;'>{{ result.result_multiplayer }} </td>";
+                    t += "<td style='background-color: rgba(255, 255, 255, 0.3)'>{{ result.result_multiplayer }} </td>";
                     t += "<td>{{ result.result_easy }} </td>";
                     t += "<td>{{ result.result_medium }} </td>";
                     t += "<td>{{ result.result_hard }} </td>";
@@ -63,7 +64,7 @@
                     t += "<td>{{ forloop.counter }} </td>";
                     t += "<td>{{ result.username }} </td>";
                     t += "<td>{{ result.result_multiplayer }} </td>";
-                    t += "<td style='background-color: red;'>{{ result.result_easy }} </td>";
+                    t += "<td style='background-color: rgba(255, 255, 255, 0.3)'>{{ result.result_easy }} </td>";
                     t += "<td>{{ result.result_medium }} </td>";
                     t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
@@ -76,7 +77,7 @@
                     t += "<td>{{ result.username }} </td>";
                     t += "<td>{{ result.result_multiplayer }} </td>";
                     t += "<td>{{ result.result_easy }} </td>";
-                    t += "<td style='background-color: red;'>{{ result.result_medium }} </td>";
+                    t += "<td style='background-color: rgba(255, 255, 255, 0.3);'>{{ result.result_medium }} </td>";
                     t += "<td>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
@@ -89,7 +90,7 @@
                     t += "<td>{{ result.result_multiplayer }} </td>";
                     t += "<td>{{ result.result_easy }} </td>";
                     t += "<td>{{ result.result_medium }} </td>";
-                    t += "<td style='background-color: red;'>{{ result.result_hard }} </td>";
+                    t += "<td style='background-color: rgba(255, 255, 255, 0.3);'>{{ result.result_hard }} </td>";
                     t += "</tr>";
                 {% endfor %}
             }

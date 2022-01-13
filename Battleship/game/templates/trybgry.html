@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
       <div class="text-center">
         <h1 class="mx-auto my-0 text-uppercase">BattleShip</h1>
-        <h2 class="text-white-50 mx-auto mt-2 mb-5">Wybierz swojego przeciwnika:</h2>
-        <a class="btn btn-primary" href="{% url 'game' mode='easy' %}">AI łatwy</a>
-        <a class="btn btn-primary" href="{% url 'game' mode='medium' %}">AI średni</a>
-        <a class="btn btn-primary" href="{% url 'game' mode='hard' %}">AI trudny</a>
-        <a class="btn btn-primary" href="{% url 'game' mode='multiplayer' %}">inny gracz</a>
+        <h2 class="text-white-50 mx-auto mt-2 mb-5">{% translate "Wybierz swojego przeciwnika:" %}</h2>
+        <a class="btn btn-primary" href="{% url 'game' mode='easy' %}">{% translate "AI łatwy" %}</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='medium' %}">{% translate "AI średni" %}</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='hard' %}">{% translate "AI trudny" %}</a>
+        <a class="btn btn-primary" href="{% url 'game' mode='multiplayer' %}">{% translate "inny gracz" %}</a>
       </div>
     </div>
   </div>

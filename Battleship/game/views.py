@@ -12,9 +12,22 @@ from django.core import serializers
 from .models import Result
 from .models import Player
 
-def home(request):
-    return render(request, 'index.html', {})
+from django.utils.translation import gettext as _
+from django.utils.translation import get_language, activate, gettext
 
+
+def home(request):
+    trans = translate(language ='en')
+    return render(request, 'index.html', {'trans': trans})
+
+def translate(language):
+    cur_language = get_language()
+    try:
+        activate(language)
+        text = gettext('gvjujtf')
+    finally:
+        activate(cur_language)
+    return text
 
 @login_required(login_url='login')
 def game(request, mode):
@@ -24,6 +37,9 @@ def game(request, mode):
 
 def gamemode(request):
     return render(request, 'trybgry.html')
+
+def playerpanel(request):
+    return render(request, 'PanelGracza.html')
 
 
 def registerPage(request):

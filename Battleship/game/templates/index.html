@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">BattleShip</h1>
-                 <h2 class="text-white-50 mx-auto mt-2 mb-5">{% translate "Statki" %}</h2>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">{% translate "Statki" %}</h2>
                 {% if request.user.is_authenticated %}
                     <a class="btn btn-primary" href="{% url 'gamemode' %}">{% translate "Zagraj" %}</a>
                 {% else %}

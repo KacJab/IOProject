@@ -15,6 +15,18 @@ from .models import Player
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language, activate, gettext
 
+def home(request):
+    trans = translate(language ='en')
+    return render(request, 'index.html', {'trans': trans})
+
+def translate(language):
+    cur_language = get_language()
+    try:
+        activate(language)
+        text = gettext('gvjujtf')
+    finally:
+        activate(cur_language)
+    return text
 
 def home(request):
     trans = translate(language ='en')

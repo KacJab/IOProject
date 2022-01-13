@@ -4,12 +4,12 @@
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div style="padding-top: 25rem" class="text-center">
-                <h1  class="mx-auto my-0 text-uppercase">Rejestracja</h1>
+                <h1 class="mx-auto my-0 text-uppercase">Rejestracja</h1>
                 <div class="form-outline mb-4">
                 </div>
                 <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <h4 style="padding-bottom: 3rem"  class="text-center">Utwórz nowe konto</h4>
+                    <h4 style="padding-bottom: 3rem" class="text-center">Utwórz nowe konto</h4>
                     <div class="form-outline mb-4">
                         {{ form.username }}
                         <label class="col-form-label" for="username">Nazwa użytkownika</label>
@@ -27,8 +27,7 @@
 
                     <div class="form-outline mb-4">
                         {{ form.password2 }}
-                        <label class="col-form-label" for="password">Potwierdź hasło</label>
-                    </div>
+                        <label class="col-form-label" for="password">Potwierdź hasło</label></div>
 
                     <div class="form-outline mb-4">
                         {{ form.avatar }}

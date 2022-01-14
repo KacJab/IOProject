@@ -28,3 +28,11 @@ class ResultForm(forms.ModelForm):
     class Meta:
         model = Result
         fields = "__all__"
+
+
+class VerifyPasswordForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super(VerifyPasswordForm, self).clean()
+        password = cleaned_data.get('password')

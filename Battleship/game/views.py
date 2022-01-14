@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # Create your views here.
 from .game_utilities import *
-from .forms import CreateUserForm
+from .forms import CreateUserForm, VerifyPasswordForm
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -11,9 +11,10 @@ from .forms import ResultForm
 from django.core import serializers
 from .models import Result
 from .models import Player
-
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language, activate, gettext
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def home(request):
@@ -37,9 +38,6 @@ def game(request, mode):
 
 def gamemode(request):
     return render(request, 'trybgry.html')
-
-def playerpanel(request):
-    return render(request, 'panelGracza.html')
 
 
 def registerPage(request):
@@ -75,6 +73,46 @@ def loginPage(request):
 
         context = {}
         return render(request, 'users/login.html', context)
+
+
+def playerpanel(request):
+    form = PasswordChangeForm(request.user)
+    verify_password_form = VerifyPasswordForm()
+
+    context = {
+        'form': form,
+        'verify_password_form': verify_password_form
+    }
+    return render(request, 'panelGracza.html', context)
+
+
+@login_required(login_url='login')
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+        else:
+            messages.info(request, 'Incorrect password')
+        return redirect('playerpanel')
+
+
+@login_required(login_url='login')
+def delete_account(request):
+    if request.method == 'POST':
+        form = VerifyPasswordForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            password_match = request.user.check_password(password)
+            if password_match:
+                request.user.delete()
+                logout(request)
+                return redirect('home')
+            else:
+                messages.info(request, 'Incorrect password')
+                return redirect('playerpanel')
+    return redirect('playerpanel')
 
 
 def logoutUser(request):
@@ -118,7 +156,8 @@ def replay(request, result_id):
 
 @login_required(login_url='login')
 def save_result(request, mode):
-    if request.method == "POST" and request.is_ajax():
+    # if request.method == "POST" and request.is_ajax():
+    if request.method == "POST":
         form = ResultForm(request.POST)
         print(form)
         print(form.is_valid)
@@ -127,11 +166,11 @@ def save_result(request, mode):
             serialized_instance = serializers.serialize('json', [instance, ])
 
             player1 = Player.objects.filter(username=request.POST.get("player1"))[0]
-            result1 = int(request.POST.get("result1"))
+            result1 = float(request.POST.get("result1"))
 
             if mode == "multiplayer":
                 player2 = Player.objects.filter(username=request.POST.get("player2"))[0]
-                result2 = int(request.POST.get("result2"))
+                result2 = float(request.POST.get("result2"))
 
                 if result1 > player1.result_multiplayer:
                     Player.objects.filter(username=request.POST.get("player1")).update(result_multiplayer=result1)
@@ -152,3 +191,6 @@ def save_result(request, mode):
             return JsonResponse({"instance": serialized_instance}, status=200)
         else:
             return JsonResponse({"error": ":(("}, status=400)
+    else:
+        print('error!')
+        return JsonResponse({"error": "oops"}, status=400)

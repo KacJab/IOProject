@@ -7,10 +7,10 @@ from django.contrib.auth.models import AbstractUser
 
 class Player(AbstractUser):
     avatar = models.ImageField(default="images/default.png", null=True, blank=True, upload_to="images")
-    result_multiplayer = models.PositiveIntegerField(default=0)
-    result_easy = models.PositiveIntegerField(default=0)
-    result_medium = models.PositiveIntegerField(default=0)
-    result_hard = models.PositiveIntegerField(default=0)
+    result_multiplayer = models.FloatField(default=0)
+    result_easy = models.FloatField(default=0)
+    result_medium = models.FloatField(default=0)
+    result_hard = models.FloatField(default=0)
 
 
 class Result (models.Model):
@@ -24,8 +24,8 @@ class Result (models.Model):
     mode = models.CharField(choices=MODE, max_length=20)
     player1 = models.CharField(max_length=50)
     player2 = models.CharField(max_length=50)
-    result1 = models.PositiveIntegerField()
-    result2 = models.PositiveIntegerField()
+    result1 = models.FloatField()
+    result2 = models.FloatField()
     transcript1 = models.TextField()
     transcript2 = models.TextField()
     # date = models.DateTimeField(auto_now_add=True, null=True)

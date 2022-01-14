@@ -22,7 +22,7 @@
 
             </div>
             <div class="col">
-              <h6 style="padding: 0.5rem" class="text-grey mb-4 fst-italic"> Twoja_Stara123 </h6>
+              <h6 style="padding: 0.5rem" class="text-grey mb-4 fst-italic">{{ request.user }} </h6>
             </div>
           </div>
           <div/>
@@ -39,34 +39,43 @@
         <div class="row">
           <div style="padding-right: 1.5rem" class="col">
             <h2 class="text-white mb-4">{% translate "Zmień swoje hasło" %}</h2>
-            <form>
+            <form method="POST" action="{% url 'password_change' %}">
+              {% csrf_token %}
               <div class="form-outline mb-4">
-                <input type="password" id="password1" class="form-control" placeholder="Obecne hasło"/>
+                  {{ form.old_password }}
                 <label class="col-form-label" for="password1">{% translate "Obecne hasło" %}</label>
               </div>
               <div class="form-outline mb-4">
-                <input type="password" id="password2" class="form-control" placeholder="Nowe hasło"/>
+                  {{ form.new_password1 }}
                 <label class="col-form-label" for="password2">{% translate "Nowe hasło" %}</label>
               </div>
               <div class="form-outline mb-4">
-                <input type="password" id="password3" class="form-control" />
+                  {{ form.new_password2 }}
                 <label class="col-form-label" for="password3">{% translate "Hasło" %}</label>
               </div>
+                {%  for message in messages %}
+                    <p id="message" class="text-white">{{ message }}</p>
+                {% endfor %}
               <div class="d-flex align-items-center justify-content-center pb-4">
-                <a class="btn btn-primary" href="panelGracza.html">{% translate "Zmień hasło" %}</a>
+                <input class="btn btn-primary" type="submit" value="Zaloguj">
               </div>
             </form>
           </div>
+
           <div style="padding-left: 1.5rem" class="col">
             <div class="form-outline mb-4">
             <h2 style="padding-top: 1rem" class="text-white mb-4">{% translate "Usuń konto" %}</h2>
             <h6 style="padding: 0.5rem" class="text-white mb-4">{% translate "W celu usunięcia konta wprowadź swoje hasło" %}</h6>
-            <form>
+            <form method="POST" action="{% url 'delete_account' %}">
+              {% csrf_token %}
               <div class="form-outline mb-4">
-                <input type="password" id="password4" class="form-control" />
+                  {{ verify_password_form.password }}
                 <label class="col-form-label" for="password4">{% translate "Hasło" %}</label>
               </div>
-              <a class="btn btn-primary" href="index.html">{% translate "Usuń konto" %}</a>
+                {%  for message in messages %}
+                    <p id="message" class="text-white">{{ message }}</p>
+                {% endfor %}
+                <input class="btn btn-primary" type="submit" value="Usuń konto">
             </form>
           </div>
           </div>

@@ -678,6 +678,7 @@
                                     {%  if mode == "easy" %}
                                         controlSum2 = easy_mode(player2_game_transcript, board, controlSum2);
                                         if (controlSum2 == 20) {
+                                            player2count = player2_game_transcript.length;
                                             alert("Zwycięża komputer!");
                                             let result1 = 100 * (controlSum / player1count);
                                             let result2 = 100 * (controlSum / player2count);
@@ -695,6 +696,7 @@
                                     {% elif mode == "medium" %}
                                         controlSum2 = medium_mode(player2_game_transcript, board, controlSum2)
                                         if (controlSum2 == 20) {
+                                            player2count = player2_game_transcript.length;
                                             alert("Zwycięża komputer!");
                                             let result1 = 100 * (controlSum / player1count);
                                             let result2 = 100 * (controlSum / player2count);
@@ -712,6 +714,7 @@
                                     {% elif mode == "hard" %}
                                         controlSum2 = hard_mode(player2_game_transcript, board, controlSum2, sunken_ships_locations, starting_board_of_p1, potential_targets, line_of_shooting);
                                         if (controlSum2 == 20) {
+                                            player2count = player2_game_transcript.length;
                                             alert("Zwycięża komputer!");
                                             let result1 = 100 * (controlSum / player1count);
                                             let result2 = 100 * (controlSum / player2count);
@@ -750,6 +753,7 @@
                                     }
                                 }
                                 if (controlSum == 20) {
+                                    player2count = player2_game_transcript.length;
                                     alert("koniec gry wygrał gracz 1.");
                                     let result1 = 100 * (controlSum / player1count);
                                     let result2 = 100 * (controlSum / player2count);
@@ -803,6 +807,7 @@
 
                                 }
                                 if (controlSum2 == 20) {
+                                    player2count = player2_game_transcript.length;
                                     alert("koniec gry, wygrał gracz 2.");
                                     let result1 = 100 * (controlSum / player1count);
                                     let result2 = 100 * (controlSum / player2count);

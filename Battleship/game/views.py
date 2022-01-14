@@ -212,7 +212,7 @@ def save_result(request, mode):
 
             return JsonResponse({"instance": serialized_instance}, status=200)
         else:
-            return JsonResponse({"error": ":(("}, status=400)
+            return JsonResponse({"error": "Invalid form"}, status=400)
     else:
         print('error!')
-        return JsonResponse({"error": "oops"}, status=400)
+        return JsonResponse({"error": "request method != post"}, status=400)

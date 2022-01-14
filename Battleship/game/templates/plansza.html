@@ -735,6 +735,8 @@
                                 }
                                 if (controlSum == 20) {
                                     alert("koniec gry wygrał gracz 1.");
+                                    let result1 = 100*(controlSum/player1count);
+                                    let result2 = 100*(controlSum/player2count);
                                     document.getElementById('mode').value="{{ mode }}";
                                     document.getElementById('player1').value="{{ request.user }}";
                                     document.getElementById('player2').value="{{ player2_username }}";

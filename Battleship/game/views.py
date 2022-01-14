@@ -32,9 +32,11 @@ def translate(language):
 
 @login_required(login_url='login')
 def game(request, mode):
-    context = {'mode': mode, 'player2_username': request.session['_player2_username']}
+    if mode == 'multiplayer':
+        context = {'mode': mode, 'player2_username': request.session['_player2_username']}
+    else:
+        context = {'mode': mode, 'player2_username': "kąputerek"}
     return render(request, 'plansza.html', context)
-
 
 def gamemode(request):
     return render(request, 'trybgry.html')

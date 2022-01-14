@@ -17,7 +17,8 @@
                 <div class="col-md-2"><p style="color: white">WYNIK GRACZA 2</p></div>
 
                 {% for r in result %}
-                    <a href="{% url 'replay' result_id='1' %}"><div class="row" style="background-color: red; border-style: dashed;">
+                    <script>console.log({{ r.id }});</script>
+                    <a href="{% url 'replay' result_id=r.id %}"><div class="row" style="background-color: red; border-style: dashed;">
                         <div class="col-md-4"><p style="color: white">{{ r.mode }}</p></div>
                         <div class="col-md-2"><p style="color: white">{{ r.player1 }}</p></div>
                         <div class="col-md-2"><p style="color: white">{{ r.result1 }}</p></div>

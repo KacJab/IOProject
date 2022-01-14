@@ -3,99 +3,120 @@
 {% block content %}
 
     <header class="masthead">
-  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-    <div class="d-flex justify-content-center">
-      <div class="text-center">
-        <h1 style="padding-bottom:3rem"class="mx-auto my-0 text-uppercase">{% translate "Panel Gracza" %}</h1>
-        <div/>
-        <div class="container">
-            <div class="row" style="background-color: lightgreen">
-                <h1 style="color: white">{{ result.transcript1 }}</h1>
-                <h1 style="color: black">{{ result.transcript2 }}</h1>
+
+        {#        <h1 style="color: white">{{ result.transcript1 }}</h1>#}
+        {#        <h1 style="color: black">{{ result.transcript2 }}</h1>#}
+
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="grid-container">
+                    <div class="col-6 grid-child">
+                        <table class="table table-bordered table-dark" id="player_1_board">
+                        </table>
+                    </div>
+
+                    <div class=" col-6 grid-child">
+                        <table class="table table-bordered table-dark" id="player_2_board">
+                        </table>
+                    </div>
+                </div>
             </div>
-          <div/>
         </div>
-      </div>
-    </div>
+    </header>
 
-  </div>
-</header>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        function createBoard(boardToDisplay, container1, container2) {
 
-{#    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">#}
-{#        <div class="d-flex justify-content-center">#}
-{#            <div class="grid-container">#}
-{#                <div class="col-6 grid-child">#}
-{#                    <table class="table table-bordered table-dark" id="player_1_own_board">#}
-{#                    </table>#}
-{#                </div>#}
-{##}
-{#                <div class=" col-6 grid-child">#}
-{#                    <table class="table table-bordered table-dark" id="player_1_enemy_board">#}
-{#                    </table>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <script>#}
-{#        function createBoard(boardToDisplay, container1, container2) {#}
-{##}
-{#            let tbl = container1;#}
-{#            let tbl2 = container2;#}
-{##}
-{#            let tblBody = document.createElement("tbody");#}
-{#            let tblBody2 = document.createElement("tbody");#}
-{##}
-{#            for (let j = 0; j < 11; j++) {#}
-{#                var row = document.createElement("tr");#}
-{#                var row2 = document.createElement("tr");#}
-{##}
-{#                for (var i = 0; i < 11; i++) {#}
-{##}
-{#                    var cell = document.createElement("td");#}
-{#                    var cell2 = document.createElement("td");#}
-{##}
-{#                    var cellText = document.createTextNode("0");#}
-{#                    var cellText2 = document.createTextNode("0");#}
-{##}
-{##}
-{#                    if (j === 0 && i !== 0) {#}
-{#                        cellText = document.createTextNode(i);#}
-{#                        cellText2 = document.createTextNode(i);#}
-{#                    } else if (j === 0 && i === 0) {#}
-{#                        cellText = document.createTextNode("X");#}
-{#                        cellText2 = document.createTextNode("X");#}
-{#                    } else if (i === 0) {#}
-{#                        cellText = document.createTextNode(String.fromCharCode(64 + j));#}
-{#                        cellText2 = document.createTextNode(String.fromCharCode(64 + j));#}
-{#                    } else {#}
-{#                        cellText = document.createTextNode(boardToDisplay[j - 1][i - 1]);#}
-{#                        cell.className = "your-field"#}
-{#                        cell2.className = "enemys-field";#}
-{#                        cell.id = j + "," + i;#}
-{#                        cell2.id = j + "," + i;#}
-{#                    }#}
-{##}
-{#                    cell.appendChild(cellText);#}
-{#                    cell2.appendChild(cellText2)#}
-{#                    row.appendChild(cell);#}
-{#                    row2.appendChild(cell2);#}
-{#                }#}
-{##}
-{#                //row added to end of table body#}
-{#                tblBody.appendChild(row);#}
-{#                tblBody2.appendChild(row2);#}
-{#            }#}
-{##}
-{#            // append the <tbody> inside the <table>#}
-{#            tbl.appendChild(tblBody);#}
-{#            tbl2.appendChild(tblBody2);#}
-{##}
-{#            tbl.setAttribute("border", "2");#}
-{#            tbl2.setAttribute("border", "2");#}
-{#        }#}
-{##}
-{#        $(document).ready(function () {#}
-{##}
-{#        });#}
-{#    </script>#}
+            let tbl = container1;
+            let tbl2 = container2;
+
+            let tblBody = document.createElement("tbody");
+            let tblBody2 = document.createElement("tbody");
+
+            for (let j = 0; j < 11; j++) {
+                var row = document.createElement("tr");
+                var row2 = document.createElement("tr");
+
+                for (var i = 0; i < 11; i++) {
+
+                    var cell = document.createElement("td");
+                    var cell2 = document.createElement("td");
+
+                    var cellText = document.createTextNode("O");
+                    var cellText2 = document.createTextNode("O");
+
+
+                    if (j === 0 && i !== 0) {
+                        cellText = document.createTextNode(i);
+                        cellText2 = document.createTextNode(i);
+                    } else if (j === 0 && i === 0) {
+                        cellText = document.createTextNode("X");
+                        cellText2 = document.createTextNode("X");
+                    } else if (i === 0) {
+                        cellText = document.createTextNode(String.fromCharCode(64 + j));
+                        cellText2 = document.createTextNode(String.fromCharCode(64 + j));
+                    } else {
+                        cell.id = "player_1" + j + "," + i;
+                        cell2.id = "player_1" + j + "," + i;
+                    }
+
+                    cell.appendChild(cellText);
+                    cell2.appendChild(cellText2)
+                    row.appendChild(cell);
+                    row2.appendChild(cell2);
+                }
+
+                //row added to end of table body
+                tblBody.appendChild(row);
+                tblBody2.appendChild(row2);
+            }
+
+            // append the <tbody> inside the <table>
+            tbl.appendChild(tblBody);
+            tbl2.appendChild(tblBody2);
+
+            tbl.setAttribute("border", "2");
+            tbl2.setAttribute("border", "2");
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function replay(transcript1, transcript2){
+            console.log("stdytfut");
+            sleep(1234000005);
+            console.log("dizała!!!!");
+        }
+
+
+        $(document).ready(function () {
+
+            let transcript_text = "{{ result.transcript1 }}";
+            let transcript_text2 = "{{ result.transcript2 }}";
+
+            let transcript1 = transcript_text.split(",");
+            let transcript2 = transcript_text2.split(",");
+
+
+            console.log(transcript1);
+            let empty_board = [];
+
+            for (let i = 0; i < 10; i++) {
+                empty_board[i] = [];
+                for (let j = 0; j < 10; j++) {
+                    empty_board[i][j] = 0;
+                }
+            }
+
+            createBoard(empty_board, document.getElementById("player_1_board"), document.getElementById("player_2_board"));
+
+
+
+        });
+
+
+
+    </script>
 {% endblock %}

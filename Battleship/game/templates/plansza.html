@@ -269,6 +269,7 @@
             }
             {#console.log(transcript_split[0].charCodeAt(0)+","+transcript_split[1]+","+transcript_split[2]);#}
             console.log(last_shot_on_target);
+
             if (last_shot_on_target.length == 0) {
                 r = Math.floor(Math.random() * 10) + 1;
                 c = Math.floor(Math.random() * 10) + 1;
@@ -326,8 +327,6 @@
                         }
                     }
                 }
-
-
             }
             if (enemy_board[r - 1][c - 1] == 0) {
                 transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
@@ -387,6 +386,23 @@
             }
             console.log("ostatni strzał:")
             console.log(last_shot_on_target);
+            if (line_of_shooting.length != 0 && potential_targets.length == 0) {
+                console.log("szukany błąd");
+                console.log([last_shot_on_target[0], last_shot_on_target[1] + 2]);
+                console.log([last_shot_on_target[0], last_shot_on_target[1] + 2]);
+                if (line_of_shooting[0] = 1) {
+
+                    console.log([last_shot_on_target[0], last_shot_on_target[1] + 2]);
+                    console.log([last_shot_on_target[0], last_shot_on_target[1] - 2]);
+                    potential_targets.push([last_shot_on_target[0], last_shot_on_target[1] + 2]);
+                    potential_targets.push([last_shot_on_target[0], last_shot_on_target[1] - 2]);
+                } else {
+                    console.log([last_shot_on_target[0] + 2, last_shot_on_target[1]]);
+                    console.log([last_shot_on_target[0] - 2, last_shot_on_target[1]]);
+                    potential_targets.push([last_shot_on_target[0] + 2, last_shot_on_target[1]]);
+                    potential_targets.push([last_shot_on_target[0] - 2, last_shot_on_target[1]]);
+                }
+            }
             if (last_shot_on_target.length == 0) {
 
                 r = Math.floor(Math.random() * 10) + 1;
@@ -663,15 +679,15 @@
                                         controlSum2 = easy_mode(player2_game_transcript, board, controlSum2);
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
-                                            let result1 = 100*(controlSum/player1count);
-                                            let result2 = 100*(controlSum/player2count);
-                                            document.getElementById('mode').value="{{ mode }}";
-                                            document.getElementById('player1').value="{{ request.user }}";
-                                            document.getElementById('player2').value="AI";
-                                            document.getElementById('result1').value=result1;
-                                            document.getElementById('result2').value=result2;
-                                            document.getElementById('transcript1').value=player1_game_transcript;
-                                            document.getElementById('transcript2').value=player2_game_transcript;
+                                            let result1 = 100 * (controlSum / player1count);
+                                            let result2 = 100 * (controlSum / player2count);
+                                            document.getElementById('mode').value = "{{ mode }}";
+                                            document.getElementById('player1').value = "{{ request.user }}";
+                                            document.getElementById('player2').value = "AI";
+                                            document.getElementById('result1').value = result1;
+                                            document.getElementById('result2').value = result2;
+                                            document.getElementById('transcript1').value = player1_game_transcript;
+                                            document.getElementById('transcript2').value = player2_game_transcript;
                                             $('#resultform').trigger('submit');
                                             game_on = false;
                                         }
@@ -680,15 +696,15 @@
                                         controlSum2 = medium_mode(player2_game_transcript, board, controlSum2)
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
-                                            let result1 = 100*(controlSum/player1count);
-                                            let result2 = 100*(controlSum/player2count);
-                                            document.getElementById('mode').value="{{ mode }}";
-                                            document.getElementById('player1').value="{{ request.user }}";
-                                            document.getElementById('player2').value="AI";
-                                            document.getElementById('result1').value=result1;
-                                            document.getElementById('result2').value=result2;
-                                            document.getElementById('transcript1').value=player1_game_transcript;
-                                            document.getElementById('transcript2').value=player2_game_transcript;
+                                            let result1 = 100 * (controlSum / player1count);
+                                            let result2 = 100 * (controlSum / player2count);
+                                            document.getElementById('mode').value = "{{ mode }}";
+                                            document.getElementById('player1').value = "{{ request.user }}";
+                                            document.getElementById('player2').value = "AI";
+                                            document.getElementById('result1').value = result1;
+                                            document.getElementById('result2').value = result2;
+                                            document.getElementById('transcript1').value = player1_game_transcript;
+                                            document.getElementById('transcript2').value = player2_game_transcript;
                                             $('#resultform').trigger('submit');
                                             game_on = false;
                                         }
@@ -697,15 +713,15 @@
                                         controlSum2 = hard_mode(player2_game_transcript, board, controlSum2, sunken_ships_locations, starting_board_of_p1, potential_targets, line_of_shooting);
                                         if (controlSum2 == 20) {
                                             alert("Zwycięża komputer!");
-                                            let result1 = 100*(controlSum/player1count);
-                                            let result2 = 100*(controlSum/player2count);
-                                            document.getElementById('mode').value="{{ mode }}";
-                                            document.getElementById('player1').value="{{ request.user }}";
-                                            document.getElementById('player2').value="AI";
-                                            document.getElementById('result1').value=result1;
-                                            document.getElementById('result2').value=result2;
-                                            document.getElementById('transcript1').value=player1_game_transcript;
-                                            document.getElementById('transcript2').value=player2_game_transcript;
+                                            let result1 = 100 * (controlSum / player1count);
+                                            let result2 = 100 * (controlSum / player2count);
+                                            document.getElementById('mode').value = "{{ mode }}";
+                                            document.getElementById('player1').value = "{{ request.user }}";
+                                            document.getElementById('player2').value = "AI";
+                                            document.getElementById('result1').value = result1;
+                                            document.getElementById('result2').value = result2;
+                                            document.getElementById('transcript1').value = player1_game_transcript;
+                                            document.getElementById('transcript2').value = player2_game_transcript;
                                             $('#resultform').trigger('submit');
                                             game_on = false;
                                         }
@@ -735,13 +751,15 @@
                                 }
                                 if (controlSum == 20) {
                                     alert("koniec gry wygrał gracz 1.");
-                                    document.getElementById('mode').value="{{ mode }}";
-                                    document.getElementById('player1').value="{{ request.user }}";
-                                    document.getElementById('player2').value="{{ player2_username }}";
-                                    document.getElementById('result1').value=result1;
-                                    document.getElementById('result2').value=result2;
-                                    document.getElementById('transcript1').value=player1_game_transcript;
-                                    document.getElementById('transcript2').value=player2_game_transcript;
+                                    let result1 = 100 * (controlSum / player1count);
+                                    let result2 = 100 * (controlSum / player2count);
+                                    document.getElementById('mode').value = "{{ mode }}";
+                                    document.getElementById('player1').value = "{{ request.user }}";
+                                    document.getElementById('player2').value = "{{ player2_username }}";
+                                    document.getElementById('result1').value = result1;
+                                    document.getElementById('result2').value = result2;
+                                    document.getElementById('transcript1').value = player1_game_transcript;
+                                    document.getElementById('transcript2').value = player2_game_transcript;
                                     $('#resultform').trigger('submit');
                                     game_on = false;
                                 }
@@ -786,15 +804,15 @@
                                 }
                                 if (controlSum2 == 20) {
                                     alert("koniec gry, wygrał gracz 2.");
-                                    let result1 = 100*(controlSum/player1count);
-                                    let result2 = 100*(controlSum/player2count);
-                                    document.getElementById('mode').value="{{ mode }}";
-                                    document.getElementById('player1').value="{{ request.user }}";
-                                    document.getElementById('player2').value="{{ player2_username }}";
-                                    document.getElementById('result1').value=result1;
-                                    document.getElementById('result2').value=result2;
-                                    document.getElementById('transcript1').value=player1_game_transcript;
-                                    document.getElementById('transcript2').value=player2_game_transcript;
+                                    let result1 = 100 * (controlSum / player1count);
+                                    let result2 = 100 * (controlSum / player2count);
+                                    document.getElementById('mode').value = "{{ mode }}";
+                                    document.getElementById('player1').value = "{{ request.user }}";
+                                    document.getElementById('player2').value = "{{ player2_username }}";
+                                    document.getElementById('result1').value = result1;
+                                    document.getElementById('result2').value = result2;
+                                    document.getElementById('transcript1').value = player1_game_transcript;
+                                    document.getElementById('transcript2').value = player2_game_transcript;
                                     $('#resultform').trigger('submit');
                                 }
                             }{% endif %}
@@ -814,7 +832,7 @@
         $('#resultform').on('submit', function (e) {
             e.preventDefault();
             alert('cosiedzieje')
-            alert( $('#mode').val())
+            alert($('#mode').val())
             $.ajax({
                 type: "POST",
                 url: "{% url 'saveresult' mode %}",

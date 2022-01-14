@@ -32,7 +32,7 @@ def translate(language):
 
 @login_required(login_url='login')
 def game(request, mode):
-    context = {'mode': mode}
+    context = {'mode': mode, 'player2_username': request.session['_player2_username']}
     return render(request, 'plansza.html', context)
 
 
@@ -84,8 +84,9 @@ def login_player2(request):
                 player2 = Player.objects.get(username=username)
                 if player2 == request.user:
                     messages.info(request, 'Nie możesz się zalogować dwa razy na tego samego użytkownika lol')
-                    redirect('login_player2')
+                    return redirect('login_player2')
                 if player2.check_password(password):
+                    request.session['_player2_username'] = username
                     return redirect('game', mode='multiplayer')
                 else:
                     messages.info(request, 'Nieprawidłowe hasło')

@@ -2,6 +2,7 @@
 {% block content %}
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
+            <h3>{{ user }} vs {{ player2_username }}</h3>
             <div class="grid-container">
                 <div class="col-6 grid-child">
                     <table class="table table-bordered table-dark" id="player_1_own_board">
@@ -736,7 +737,7 @@
                                     alert("koniec gry wygrał gracz 1.");
                                     document.getElementById('mode').value="{{ mode }}";
                                     document.getElementById('player1').value="{{ request.user }}";
-                                    document.getElementById('player2').value="player2";
+                                    document.getElementById('player2').value="{{ player2_username }}";
                                     document.getElementById('result1').value=result1;
                                     document.getElementById('result2').value=result2;
                                     document.getElementById('transcript1').value=player1_game_transcript;
@@ -789,7 +790,7 @@
                                     let result2 = 100*(controlSum/player2count);
                                     document.getElementById('mode').value="{{ mode }}";
                                     document.getElementById('player1').value="{{ request.user }}";
-                                    document.getElementById('player2').value="player2";
+                                    document.getElementById('player2').value="{{ player2_username }}";
                                     document.getElementById('result1').value=result1;
                                     document.getElementById('result2').value=result2;
                                     document.getElementById('transcript1').value=player1_game_transcript;

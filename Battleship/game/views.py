@@ -75,6 +75,27 @@ def loginPage(request):
         return render(request, 'users/login.html', context)
 
 
+@login_required
+def login_player2(request):
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            try:
+                player2 = Player.objects.get(username=username)
+                if player2 == request.user:
+                    messages.info(request, 'Nie możesz się zalogować dwa razy na tego samego użytkownika lol')
+                    redirect('login_player2')
+                if player2.check_password(password):
+                    return redirect('game', mode='multiplayer')
+                else:
+                    messages.info(request, 'Nieprawidłowe hasło')
+                    redirect('login_player2')
+            except Player.DoesNotExist:
+                messages.info(request, 'Użytkownik o podanym loginie nie istnieje')
+        context = {}
+        return render(request, 'users/login_player2.html', context)
+
+
 def playerpanel(request):
     form = PasswordChangeForm(request.user)
     verify_password_form = VerifyPasswordForm()

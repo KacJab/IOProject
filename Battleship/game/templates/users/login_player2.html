@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 style="padding-top: 7rem" class="mx-auto my-0 text-uppercase">{% translate "Logowanie" %}</h1>
+                <div class="form-outline mb-4">
+                </div>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <h4 class="text-center">{% translate "Zaloguj drugiego gracza" %}</h4>
+                    <div class="form-outline mb-4">
+                        <input type="username" id="username" name="username" class="form-control" placeholder="Wpisz swój login"/>
+                        <label class="col-form-label" for="username">{% translate "Nazwa użytkownika" %}</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Wpisz swoje hasło"/>
+                        <label class="col-form-label" for="password">{% translate "Hasło" %}</label>
+                    </div>
+                    {%  for message in messages %}
+                        <p id="message" style="color: white">{{ message }}</p>
+                    {% endfor %}
+                    <div class="d-flex align-items-center justify-content-center pb-4">
+                        <input class="btn btn-primary" type="submit" value="Zaloguj">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+
+

@@ -10,6 +10,7 @@ urlpatterns = [
     path('game/<mode>/', views.game, name='game'),
     path('register/', views.registerPage, name='register'),
     path('login/', views.loginPage, name='login'),
+    path('login_player2/', views.login_player2, name='login_player2'),
     path('logout/', views.logoutUser, name='logout'),
     path('statistics/', views.statistics, name='statistics'),
     path('playerpanel/', views.playerpanel, name='playerpanel'),

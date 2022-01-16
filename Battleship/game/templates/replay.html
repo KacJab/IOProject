@@ -57,8 +57,9 @@
                         cellText = document.createTextNode(String.fromCharCode(64 + j));
                         cellText2 = document.createTextNode(String.fromCharCode(64 + j));
                     } else {
-                        cell.id = "player_1" + j + "," + i;
-                        cell2.id = "player_1" + j + "," + i;
+                        cell.id = "player_1," + j + "," + i;
+                        cell2.id = "player_2," + j + "," + i;
+                        cell.className = "enemys-field";
                     }
 
                     cell.appendChild(cellText);
@@ -84,10 +85,41 @@
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        function replay(transcript1, transcript2){
-            console.log("stdytfut");
-            sleep(1234000005);
-            console.log("dizała!!!!");
+        async function replay(transcript1, transcript2) {
+            let player = 1;
+            while (transcript1.length > 0 && transcript2.length > 0) {
+                if (player == 1) {
+                    r = transcript1[0][0].charCodeAt(0) - 64;
+                    c = transcript1[0][1];
+                    if (transcript1[0][2] == "o") {
+                        document.getElementById("player_2," + r + "," + c).style.backgroundColor = "blue";
+                        document.getElementById("player_2," + r + "," + c).textContent = "O";
+                        player = 2;
+                    } else {
+                        document.getElementById("player_2," + r + "," + c).style.backgroundColor = "red";
+                        document.getElementById("player_2," + r + "," + c).textContent = "X";
+                    }
+                    await sleep(500);
+                    transcript1.splice(0, 1);
+                } else {
+                    r = transcript2[0][0].charCodeAt(0) - 64;
+                    c = transcript2[0][1];
+                    if (transcript2[0][2] == "o") {
+                        document.getElementById("player_1," + r + "," + c).style.backgroundColor = "blue";
+                        document.getElementById("player_1," + r + "," + c).textContent = "O";
+                        player = 1;
+                    } else {
+                        document.getElementById("player_1," + r + "," + c).style.backgroundColor = "red";
+                        document.getElementById("player_1," + r + "," + c).textContent = "X";
+
+
+                    }
+                    await sleep(500);
+                    transcript2.splice(0, 1);
+
+                }
+            }
+            alert("gra dobiegła końca, wygrał gracz" + player);
         }
 
 
@@ -96,11 +128,26 @@
             let transcript_text = "{{ result.transcript1 }}";
             let transcript_text2 = "{{ result.transcript2 }}";
 
-            let transcript1 = transcript_text.split(",");
-            let transcript2 = transcript_text2.split(",");
+            let transcript1_not_yet = transcript_text.split(",");
+            let transcript2_not_yet = transcript_text2.split(",");
 
 
-            console.log(transcript1);
+            let transcript1 = [];
+            let transcript2 = []
+
+            for (let i = 0; i < transcript1_not_yet.length / 3; i++) {
+                transcript1[i] = [0, 0, 0];
+                for (let j = 0; j < 3; j++) {
+                    transcript1[i][j] = transcript1_not_yet[3 * i + j];
+                }
+            }
+            for (let i = 0; i < transcript2_not_yet.length / 3; i++) {
+                transcript2[i] = [0, 0, 0];
+                for (let j = 0; j < 3; j++) {
+                    transcript2[i][j] = transcript2_not_yet[3 * i + j];
+                }
+            }
+
             let empty_board = [];
 
             for (let i = 0; i < 10; i++) {
@@ -109,13 +156,16 @@
                     empty_board[i][j] = 0;
                 }
             }
+            console.log(transcript1);
+            console.log(transcript2);
 
             createBoard(empty_board, document.getElementById("player_1_board"), document.getElementById("player_2_board"));
 
+            replay(transcript1, transcript2);
 
-
+            $(".enemys-field").click(function () {
+            });
         });
-
 
 
     </script>

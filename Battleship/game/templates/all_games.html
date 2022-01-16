@@ -6,19 +6,20 @@
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
       <div class="text-center">
-        <h1 style="padding-bottom:3rem"class="mx-auto my-0 text-uppercase">{% translate "Panel Gracza" %}</h1>
+        <h1 style="padding-top:20rem; padding-bottom:3rem;"class="mx-auto my-0 text-uppercase">{% translate "Historia gier" %}</h1>
         <div/>
-        <div class="container">
-            <div class="row" style="background-color: blue">
-                <div class="col-md-4"><p style="color: white">TRYB</p></div>
-                <div class="col-md-2"><p style="color: white">GRACZ 1</p></div>
-                <div class="col-md-2"><p style="color: white">WYNIK GRACZA 1</p></div>
-                <div class="col-md-2"><p style="color: white">GRACZ 2</p></div>
-                <div class="col-md-2"><p style="color: white">WYNIK GRACZA 2</p></div>
+        <div style = "color: transparent;" class="container">
+                 <div class="row" style="background-color: rgba(0, 0, 0, 0.5); border-style: solid solid solid solid; border-color: rgba(255,255,255,0.2)">
+                <div class="col-md-4"><p class="mx-auto my-0 text-uppercase" style="color: white; font-size: 1.5em;">{% translate "Tryb Gry" %} </p></div>
+                <div class="col-md-2"><p class="mx-auto my-0 text-uppercase" style="color: white; font-size: 1.5em;">{% translate "Gracz 1" %}</p></div>
+                <div class="col-md-2"><p class="mx-auto my-0 text-uppercase" style="color: white; font-size: 1.5em;">{% translate "Wynik gracza 1" %}</p></div>
+                <div class="col-md-2"><p class="mx-auto my-0 text-uppercase" style="color: white; font-size: 1.5em;">{% translate "Gracz 2" %}</p></div>
+                <div class="col-md-2"><p class="mx-auto my-0 text-uppercase" style="color: white; font-size: 1.5em;">{% translate "Wynik gracza 2" %}</p></div>
+
 
                 {% for r in result %}
                     <script>console.log({{ r.id }});</script>
-                    <a href="{% url 'replay' result_id=r.id %}"><div class="row" style="background-color: red; border-style: dashed;">
+                    <a href="{% url 'replay' result_id=r.id %}"><div class="row" style="background-color: transparent; border-style: solid none none none; border-color: rgba(255,255,255,0.2);">
                         <div class="col-md-4"><p style="color: white">{{ r.mode }}</p></div>
                         <div class="col-md-2"><p style="color: white">{{ r.player1 }}</p></div>
                         <div class="col-md-2"><p style="color: white">{{ r.result1 }}</p></div>

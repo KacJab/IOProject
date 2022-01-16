@@ -5,21 +5,21 @@
             <h3>{{ user }} vs {{ player2_username }}</h3>
             <div class="grid-container">
                 <div class="col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="player_1_own_board">
+                    <table class="table table-bordered table-dark"style="background-color: rgba(255, 255, 255, 0.1);" id="player_1_own_board">
                     </table>
                 </div>
 
                 <div class=" col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="player_1_enemy_board">
+                    <table class="table table-bordered table-dark"style="background-color: rgba(255, 255, 255, 0.1);" id="player_1_enemy_board">
                     </table>
                 </div>
                 <div class="col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="player_2_own_board">
+                    <table class="table table-bordered table-dark" style="background-color: rgba(255, 255, 255, 0.1);"id="player_2_own_board">
                     </table>
                 </div>
 
                 <div class=" col-6 grid-child">
-                    <table class="table table-bordered table-dark" id="player_2_enemy_board">
+                    <table  style = "background-color: rgba(255, 255, 255, 0.1);" class="table table-bordered table-dark" id="player_2_enemy_board">
                     </table>
                 </div>
             </div>
@@ -163,8 +163,8 @@
                     var cell = document.createElement("td");
                     var cell2 = document.createElement("td");
 
-                    var cellText = document.createTextNode("O");
-                    var cellText2 = document.createTextNode("O");
+                    var cellText = document.createTextNode("");
+                    var cellText2 = document.createTextNode("");
 
 
                     if (j === 0 && i !== 0) {
@@ -177,9 +177,8 @@
                         cellText = document.createTextNode(String.fromCharCode(64 + j));
                         cellText2 = document.createTextNode(String.fromCharCode(64 + j));
                     } else {
-                        cellText = document.createTextNode(boardToDisplay[j - 1][i - 1]);
                         if (boardToDisplay[j - 1][i - 1] != 0) {
-                            cellText = document.createTextNode("X");
+                            cell.style.backgroundColor = "black";
                         }
                         cell.className = "your-field"
                         cell2.className = "enemys-field";
@@ -226,7 +225,7 @@
             if (enemy_board[r - 1][c - 1] == 0) {
                 transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
                 alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
-                document.getElementById(target_element.id).style.backgroundColor = "blue";
+                document.getElementById(target_element.id).style.backgroundColor = "#5f9ea0";
                 document.getElementById(target_element.id).className = "checkedfield";
 
 
@@ -334,7 +333,7 @@
             if (enemy_board[r - 1][c - 1] == 0) {
                 transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
                 alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
-                document.getElementById(target_element.id).style.backgroundColor = "blue";
+                document.getElementById(target_element.id).style.backgroundColor = "#5f9ea0";
                 document.getElementById(target_element.id).className = "checkedfield";
 
 
@@ -471,7 +470,7 @@
             if (enemy_board[r - 1][c - 1] == 0) {
                 transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
                 alert("pudło(" + String.fromCharCode(64 + r) + c.toString() + ") ruch 1. gracza");
-                document.getElementById(target_element.id).style.backgroundColor = "blue";
+                document.getElementById(target_element.id).style.backgroundColor = "#5f9ea0";
                 document.getElementById(target_element.id).className = "checkedfield";
 
 
@@ -662,9 +661,9 @@
                         if (currentPlayer == 1) {
                             player1count++;
                             if (board2[r - 1][c - 1] == 0) {
-                                document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "blue";
+                                document.getElementById("player_2_own_board," + this.id).style.backgroundColor = "#5f9ea0";
 
-                                this.style.backgroundColor = "blue";
+                                this.style.backgroundColor = "#5f9ea0";
                                 player1_game_transcript.push(String.fromCharCode(64 + r) + "," + c + "," + "o");
                                 {% if mode == "multiplayer" %}
                                     $("#player_1_enemy_board").hide();
@@ -773,8 +772,8 @@
 
                             if (board[r - 1][c - 1] === 0) {
 
-                                document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "blue";
-                                this.style.backgroundColor = "blue";
+                                document.getElementById("player_1_own_board," + this.id).style.backgroundColor = "#5f9ea0";
+                                this.style.backgroundColor = "#5f9ea0";
                                 player2_game_transcript.push(String.fromCharCode(64 + r) + "," + c.toString() + "," + "o");
 
                                 $("#player_2_enemy_board").hide();

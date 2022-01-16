@@ -36,13 +36,31 @@
                             <li class="nav-item" style="padding: 1rem"><img class="rounded mx-auto d-block" src="{%  static user.avatar %}" style="max-height: 50px; max-width=50px;"/></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'playerpanel' %}">{% translate "Panel Gracza" %}</a></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6"  href="{% url 'statistics' %}">{% translate "Statystyki" %}</a></li>
-                            <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'allgames' %}">{% translate "GRGR" %}</a></li>
+                            <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'allgames' %}">{% translate "Historia Gier" %}</a></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6" href="{% url 'logout' %}">{% translate "Wyloguj się" %}</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6"  href="{% url 'login' %}">{% translate "Zaloguj się" %}</a></li>
                             <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6"  href="{% url 'register' %}">{% translate "Rejestracja" %}</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" style = "color: white; opacity: 0.6"  href="{% url 'register' %}">{{ LANGUAGE_CODE }}</a></li>
+                       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" style = "color: white; opacity: 0.6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% translate "Język" %}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+
+            {% for lang in languages %}
+              <li>
+              <a class="dropdown-item" href="/{{ lang.code }}/">
+                  {{ lang.name_local }}
+              </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+
 
                     </ul>
                 </div>

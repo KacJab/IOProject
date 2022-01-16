@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-13 15:15+0100\n"
+"POT-Creation-Date: 2022-01-16 21:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,25 +26,57 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: .\game\templates\base.html:36 .\game\templates\panelGracza.html:9
+#: .\game\templates\all_games.html:9
+msgid "Historia gier"
+msgstr "All Games"
+
+#: .\game\templates\all_games.html:13
+msgid "Tryb Gry"
+msgstr "Game mode"
+
+#: .\game\templates\all_games.html:14
+msgid "Gracz 1"
+msgstr "Player 1"
+
+#: .\game\templates\all_games.html:15
+msgid "Wynik gracza 1"
+msgstr "player's score 1"
+
+#: .\game\templates\all_games.html:16
+msgid "Gracz 2"
+msgstr "Player 2"
+
+#: .\game\templates\all_games.html:17
+msgid "Wynik gracza 2"
+msgstr "player's score 2"
+
+#: .\game\templates\base.html:37 .\game\templates\panelGracza.html:9
 msgid "Panel Gracza"
 msgstr "Player Panel"
 
-#: .\game\templates\base.html:37
+#: .\game\templates\base.html:38
 msgid "Statystyki"
 msgstr "Statistics"
 
-#: .\game\templates\base.html:38
+#: .\game\templates\base.html:39
+msgid "Historia Gier"
+msgstr "All Games"
+
+#: .\game\templates\base.html:40
 msgid "Wyloguj się"
 msgstr "Log out"
 
-#: .\game\templates\base.html:40
+#: .\game\templates\base.html:42
 msgid "Zaloguj się"
 msgstr "Log in"
 
-#: .\game\templates\base.html:41
+#: .\game\templates\base.html:43
 msgid "Rejestracja"
 msgstr "Register"
+
+#: .\game\templates\base.html:47
+msgid "Język"
+msgstr "Language"
 
 #: .\game\templates\index.html:8
 msgid "Statki"
@@ -70,54 +102,51 @@ msgstr "Change password or delete account"
 msgid "Zmień swoje hasło"
 msgstr "Change password"
 
-#: .\game\templates\panelGracza.html:45
+#: .\game\templates\panelGracza.html:46
 msgid "Obecne hasło"
 msgstr "Current password"
 
-#: .\game\templates\panelGracza.html:49
+#: .\game\templates\panelGracza.html:50
 msgid "Nowe hasło"
 msgstr "New password"
 
-#: .\game\templates\panelGracza.html:53 .\game\templates\panelGracza.html:67
+#: .\game\templates\panelGracza.html:54 .\game\templates\panelGracza.html:73
 #: .\game\templates\users\login.html:21
+#: .\game\templates\users\login_player2.html:21
 msgid "Hasło"
 msgstr "Password"
 
-#: .\game\templates\panelGracza.html:56
-msgid "Zmień hasło"
-msgstr "Change Password"
-
-#: .\game\templates\panelGracza.html:62 .\game\templates\panelGracza.html:69
+#: .\game\templates\panelGracza.html:67
 msgid "Usuń konto"
 msgstr "Delete account"
 
-#: .\game\templates\panelGracza.html:63
+#: .\game\templates\panelGracza.html:68
 msgid "W celu usunięcia konta wprowadź swoje hasło"
 msgstr "Enter your password to delete your account"
 
-#: .\game\templates\stat.html:6
+#: .\game\templates\stat.html:7
 #, fuzzy
 #| msgid "Statystyki"
 msgid "statystyki"
 msgstr "statistics"
 
-#: .\game\templates\stat.html:11
+#: .\game\templates\stat.html:12
 msgid "Nazwa Użytkownika"
 msgstr "Username"
 
-#: .\game\templates\stat.html:12
+#: .\game\templates\stat.html:13
 msgid "vs gracz"
 msgstr " vs other player"
 
-#: .\game\templates\stat.html:13
+#: .\game\templates\stat.html:14
 msgid "vs łatwy"
 msgstr "vs easy"
 
-#: .\game\templates\stat.html:14
+#: .\game\templates\stat.html:15
 msgid "vs średni"
 msgstr "vs medium"
 
-#: .\game\templates\stat.html:15
+#: .\game\templates\stat.html:16
 msgid "vs trudny"
 msgstr "vs hard"
 
@@ -142,6 +171,7 @@ msgid "inny gracz"
 msgstr "other player"
 
 #: .\game\templates\users\login.html:8
+#: .\game\templates\users\login_player2.html:8
 msgid "Logowanie"
 msgstr "Login"
 
@@ -150,6 +180,7 @@ msgid "Zaloguj się na swoje konto"
 msgstr "Log in to your account"
 
 #: .\game\templates\users\login.html:16
+#: .\game\templates\users\login_player2.html:16
 msgid "Nazwa użytkownika"
 msgstr "Username"
 
@@ -161,9 +192,16 @@ msgstr "Don't have an account?"
 msgid "Stwórz nowe"
 msgstr "Create new!"
 
-#: .\game\views.py:27
+#: .\game\templates\users\login_player2.html:13
+msgid "Zaloguj drugiego gracza"
+msgstr ""
+
+#: .\game\views.py:28
 msgid "gvjujtf"
 msgstr "xdddd"
+
+#~ msgid "Zmień hasło"
+#~ msgstr "Change Password"
 
 #~ msgid "battleship"
 #~ msgstr "Statki"
